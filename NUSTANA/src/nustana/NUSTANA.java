@@ -16,8 +16,14 @@ import javax.swing.UIManager;
 public class NUSTANA {
     //Application entry point
     public static void main(String[] args) {
+        initializeLogger();
         initializeUI();
+        Logger.Log("Application initialized!");
         JOptionPane.showMessageDialog(null, "Welcome to NUSTANA app.","NUSTANA",JOptionPane.INFORMATION_MESSAGE);
+    }
+    //Initialize logger
+    public static void initializeLogger(){
+        Logger.initialize();
     }
     //Changes UI Theme
     public static void initializeUI(){
