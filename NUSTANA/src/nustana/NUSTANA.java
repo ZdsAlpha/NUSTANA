@@ -6,20 +6,31 @@
 package nustana;
 
 import java.awt.Color;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import org.json.JSONObject;
 
 /**
  *
  * @author Abdul Rahman
  */
 public class NUSTANA {
+    public static final String CONFIGURATION_FILE_PATH = "config.json";
+    public static String ApplicationId;
+    public static String SecretKey;
     //Application entry point
     public static void main(String[] args) {
         initializeLogger();
         initializeUI();
         Logger.Log("Application initialized!");
-        JOptionPane.showMessageDialog(null, "Welcome to NUSTANA app.","NUSTANA",JOptionPane.INFORMATION_MESSAGE);
+        if(!loadConfig()) {
+            //TODO: Reconfiguration
+            JOptionPane.showMessageDialog(null, "Unable to load configuration from file \""+CONFIGURATION_FILE_PATH+"\".");
+            System.exit(0);
+        }
+        Logger.Log("Application configured!");   
     }
     //Initialize logger
     public static void initializeLogger(){
@@ -49,5 +60,18 @@ public class NUSTANA {
                 }
             }
         } catch (Exception ex){}
+    }
+    //Load configuration
+    public static boolean loadConfig(){
+        try{
+            String content = new String(Files.readAllBytes(Paths.get(CONFIGURATION_FILE_PATH)));
+            JSONObject obj = new JSONObject(content);
+            ApplicationId = obj.getString("applicationId");
+            SecretKey = obj.getString("secretKey");
+            return true;
+        }catch(Exception ex){
+            Logger.Log(ex);
+            return false;
+        }
     }
 }
