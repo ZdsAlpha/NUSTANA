@@ -131,6 +131,17 @@ public class BackendlessClient {
         }
     }
     
+    public synchronized JSONObject ResetPassword(String email) throws IOException , BackendlessException{
+        try{
+            JSONObject response = new JSONObject(CreateRequest("GET", "users/restorepassword/"+email));
+            BackendlessException exception = BackendlessException.getException(response);
+            if(exception != null) throw exception;
+            return response;
+        }catch(JSONException ex){
+            return null;
+        }
+    }
+    
     public synchronized JSONObject CreateObject(String table,JSONObject object)throws IOException , BackendlessException {
         JSONObject response = new JSONObject(CreateRequest("POST", "data/"+table, object));
         BackendlessException exception = BackendlessException.getException(response);
