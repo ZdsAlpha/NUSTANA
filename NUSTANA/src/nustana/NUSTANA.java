@@ -11,15 +11,18 @@ import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.json.JSONObject;
+import tools.FileSystem;
 
 /**
  *
  * @author Abdul Rahman
  */
 public class NUSTANA {
-    public static final String CONFIGURATION_FILE_PATH = "config.json";
+    public static final String CONFIGURATION_FILE_PATH = "appConfig.json";
     public static String ApplicationId;
     public static String SecretKey;
+    public static String username;
+    public static String password;
     //Application entry point
     public static void main(String[] args) {
         initializeLogger();
@@ -27,10 +30,12 @@ public class NUSTANA {
         Logger.Log("Application initialized!");
         if(!loadConfig()) {
             //TODO: Reconfiguration
-            JOptionPane.showMessageDialog(null, "Unable to load configuration from file \""+CONFIGURATION_FILE_PATH+"\".");
-            System.exit(0);
+            JOptionPane.showMessageDialog(null, "Unable to load configuration from file \""+CONFIGURATION_FILE_PATH+"\".","Error!",JOptionPane.ERROR_MESSAGE);
+            new Configuration().setVisible(true);
         }
-        Logger.Log("Application configured!");   
+        else{
+            Logger.Log("Application configured!");
+        }
     }
     //Initialize logger
     public static void initializeLogger(){
@@ -64,10 +69,9 @@ public class NUSTANA {
     //Load configuration
     public static boolean loadConfig(){
         try{
-            String content = new String(Files.readAllBytes(Paths.get(CONFIGURATION_FILE_PATH)));
-            JSONObject obj = new JSONObject(content);
-            ApplicationId = obj.getString("applicationId");
-            SecretKey = obj.getString("secretKey");
+            JSONObject config = FileSystem.LoadObject(CONFIGURATION_FILE_PATH);
+            ApplicationId = config.getString("applicationId");
+            SecretKey = config.getString("secretKey");
             return true;
         }catch(Exception ex){
             Logger.Log(ex);
