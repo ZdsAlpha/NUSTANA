@@ -5,6 +5,7 @@
  */
 package nustana;
 
+import backendless.BackendlessClient;
 import java.awt.Color;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,10 +22,8 @@ public class NUSTANA {
     public static final String CONFIGURATION_FILE_PATH = "appConfig.json";
     public static String ApplicationId;
     public static String SecretKey;
-    public static String username;
-    public static String password;
     //Application entry point
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         initializeLogger();
         initializeUI();
         Logger.Log("Application initialized!");
