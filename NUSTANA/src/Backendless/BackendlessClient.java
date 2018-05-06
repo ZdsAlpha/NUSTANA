@@ -179,8 +179,8 @@ public class BackendlessClient {
         if(exception != null) throw exception;
         return new JSONArray(response);
     }
-    public synchronized JSONArray GetObjects(String table,int offset,int limit) throws IOException , BackendlessException{
-        String response = CreateRequest("GET","data/"+table+"?offset"+offset+",pageSize="+limit);
+    public synchronized JSONArray GetObjects(String table,int offset,int pageSize) throws IOException , BackendlessException{
+        String response = CreateRequest("GET","data/"+table+"?offset"+offset+",pageSize="+pageSize);
         BackendlessException exception = BackendlessException.getException(response);
         if(exception != null) throw exception;
         return new JSONArray(response);

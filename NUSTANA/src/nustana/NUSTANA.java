@@ -25,23 +25,42 @@ public class NUSTANA {
     //Application entry point
     public static void main(String[] args) throws Exception {
         initializeLogger();
-        initializeUI();
+        initializeUIWhite();
         Logger.Log("Application initialized!");
         if(!loadConfig()) {
             //TODO: Reconfiguration
             JOptionPane.showMessageDialog(null, "Unable to load configuration from file \""+CONFIGURATION_FILE_PATH+"\".","Error!",JOptionPane.ERROR_MESSAGE);
-            new Configuration().setVisible(true);
+            new ServerConfig().setVisible(true);
         }
         else{
             Logger.Log("Application configured!");
         }
+        new Login().setVisible(true);
     }
     //Initialize logger
     public static void initializeLogger(){
         Logger.initialize();
     }
     //Changes UI Theme
-    public static void initializeUI(){
+    public static void initializeUIWhite(){
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+    public static void initializeUIBlack(){
         UIManager.put( "control", new Color( 128, 128, 128) );
         UIManager.put( "info", new Color(128,128,128) );
         UIManager.put( "nimbusBase", new Color( 18, 30, 49) );
