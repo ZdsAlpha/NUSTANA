@@ -20,6 +20,7 @@ public class ExceptionHandling {
         JOptionPane.showMessageDialog(null,ex.toString(), "Error!",JOptionPane.ERROR_MESSAGE);
     }
     public static void ShowException(Exception ex,String message){
+        Logger.Log(ex);
         JOptionPane.showMessageDialog(null,message+"\n"+ex.toString(), "Error!",JOptionPane.ERROR_MESSAGE);
     }
     public static void ShowExceptionWithStack(Exception ex){

@@ -54,12 +54,19 @@ public class BackendlessClient {
         return CreateConnection(method, parameters,null);
     }
     
-    public synchronized String CreateRequest(String method,String parameters,byte[] content,String contentType) throws IOException{
+    public synchronized String CreateRequest(String method,String parameters,byte[] content,String contentType) throws IOException , BackendlessException{
         HttpURLConnection connection = CreateConnection(method, parameters, content, contentType);
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
+        connection.setConnectTimeout(10000);
+        connection.setReadTimeout(10000);
         int status = connection.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader in = null;
+        try{
+            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            
+        }catch(IOException ex){
+            if(connection.getErrorStream()==null) throw ex;
+            in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+        }
         String inputLine;
         StringBuffer output = new StringBuffer();
         while ((inputLine = in.readLine()) != null) {
@@ -67,29 +74,30 @@ public class BackendlessClient {
         }
         in.close();
         connection.disconnect();
-        return output.toString();
+        String text = output.toString();
+        BackendlessException exception = BackendlessException.getException(text);
+        if(exception!=null) throw exception;
+        return text;
     }
-    public synchronized String CreateRequest(String method,String parameters,byte[] content) throws IOException{
+    public synchronized String CreateRequest(String method,String parameters,byte[] content) throws IOException , BackendlessException{
         return CreateRequest(method,parameters,content,"application/json");
     }
-    public synchronized String CreateRequest(String method,String parameters,JSONObject content) throws IOException{
+    public synchronized String CreateRequest(String method,String parameters,JSONObject content) throws IOException , BackendlessException{
         if(content==null){
             return CreateRequest(method, parameters,(byte[])null);
         }else{
             return CreateRequest(method, parameters,content.toString().getBytes());
         }
     }
-    public synchronized String CreateRequest(String method,String parameters) throws IOException{
+    public synchronized String CreateRequest(String method,String parameters) throws IOException , BackendlessException{
         return CreateRequest(method,parameters,(byte[])null);
     }
     
     public synchronized JSONObject Register(JSONObject object)throws IOException,BackendlessException {
         JSONObject response = new JSONObject(CreateRequest("POST", "users/register",object));
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return response;
     }
-    public synchronized JSONObject Register(String email,String password,JSONObject properties) throws IOException,BackendlessException{
+    public synchronized JSONObject Register(String email,String password,JSONObject properties) throws IOException , BackendlessException{
         if(properties==null) properties = new JSONObject();
         properties.put("email", email);
         properties.put("password", password);
@@ -101,16 +109,12 @@ public class BackendlessClient {
         object.put("login", email);
         object.put("password", password);
         JSONObject response = new JSONObject(CreateRequest("POST", "users/login",object));
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         userToken = response.getString("user-token");
         return response;
     }
     
     public synchronized JSONObject UpdateUser(String userId,JSONObject object) throws IOException, BackendlessException{
         JSONObject response = new JSONObject(CreateRequest("PUT", "users/"+userId, object));
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return response;
     }
     public synchronized JSONObject UpdateUser(String userId,String email,String password,JSONObject properties) throws IOException, BackendlessException{
@@ -123,8 +127,6 @@ public class BackendlessClient {
     public synchronized JSONObject Logout() throws IOException, BackendlessException{
         try{
             JSONObject response = new JSONObject(CreateRequest("GET", "users/logout"));
-            BackendlessException exception = BackendlessException.getException(response);
-            if(exception != null) throw exception;
             return response;
         }catch(JSONException ex){
             return null;
@@ -134,8 +136,6 @@ public class BackendlessClient {
     public synchronized JSONObject ResetPassword(String email) throws IOException , BackendlessException{
         try{
             JSONObject response = new JSONObject(CreateRequest("GET", "users/restorepassword/"+email));
-            BackendlessException exception = BackendlessException.getException(response);
-            if(exception != null) throw exception;
             return response;
         }catch(JSONException ex){
             return null;
@@ -144,45 +144,31 @@ public class BackendlessClient {
     
     public synchronized JSONObject CreateObject(String table,JSONObject object)throws IOException , BackendlessException {
         JSONObject response = new JSONObject(CreateRequest("POST", "data/"+table, object));
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return response;
     }
     public synchronized JSONObject UpdateObject(String table,JSONObject object,String objectId) throws IOException , BackendlessException {
         JSONObject response = new JSONObject(CreateRequest("PUT", "data/"+table+"/"+objectId, object));
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return response;
     }
     public synchronized JSONObject GetObject(String table,String objectId) throws IOException , BackendlessException{
         JSONObject response = new JSONObject(CreateRequest("GET","data/"+table+"/"+objectId));
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return response;
     }
     public synchronized JSONObject DeleteObject(String table,String objectId) throws IOException , BackendlessException{
         JSONObject response = new JSONObject(CreateRequest("DELETE","data/"+table+"/"+objectId));
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return response;
     }
     
     public synchronized JSONArray GetObjects(String table) throws IOException , BackendlessException{
         String response = CreateRequest("GET","data/"+table);
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return new JSONArray(response);
     }
     public synchronized JSONArray GetObjects(String table,int offset) throws IOException , BackendlessException{
         String response = CreateRequest("GET","data/"+table+"?offset"+offset);
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return new JSONArray(response);
     }
     public synchronized JSONArray GetObjects(String table,int offset,int pageSize) throws IOException , BackendlessException{
         String response = CreateRequest("GET","data/"+table+"?offset"+offset+",pageSize="+pageSize);
-        BackendlessException exception = BackendlessException.getException(response);
-        if(exception != null) throw exception;
         return new JSONArray(response);
     }
 }

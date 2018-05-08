@@ -5,11 +5,14 @@
  */
 package nustana;
 
+import tools.ExceptionHandling;
+import tools.UI;
+
 /**
  *
  * @author Abdul Rahman
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame { 
 
     /**
      * Creates new form Login
@@ -31,16 +34,16 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        appId = new javax.swing.JTextField();
+        emailAddress = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        password = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
@@ -72,11 +75,11 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Login");
 
-        appId.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        appId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        appId.addActionListener(new java.awt.event.ActionListener() {
+        emailAddress.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        emailAddress.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        emailAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                appIdActionPerformed(evt);
+                emailAddressActionPerformed(evt);
             }
         });
 
@@ -101,6 +104,11 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(51, 153, 255));
         jLabel3.setText("Sign up");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Don't have an account?");
@@ -109,9 +117,14 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(51, 153, 255));
         jLabel7.setText("Forgot your password?");
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
 
-        jPasswordField1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        password.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        password.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -124,8 +137,8 @@ public class Login extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(appId)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)))
+                            .addComponent(emailAddress)
+                            .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(306, 306, 306)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,23 +153,23 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addGap(38, 38, 38))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(339, 339, 339)
+                        .addGap(349, 349, 349)
                         .addComponent(jLabel2)))
                 .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(63, 63, 63)
                 .addComponent(jLabel2)
-                .addGap(90, 90, 90)
+                .addGap(89, 89, 89)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(appId, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -187,13 +200,36 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void appIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appIdActionPerformed
+    private void emailAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailAddressActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_appIdActionPerformed
+    }//GEN-LAST:event_emailAddressActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        if (emailAddress.getText().equals("")){
+            UI.ErrMsg("Please enter your email to request password recovery!", "Error!");
+        }else{
+            try{
+                User.Login(emailAddress.getText(), password.getText());
+                UI.InfoMsg("You are logged in as " + User.getName(), "Logged in");
+            }catch(Exception ex){
+                ExceptionHandling.ShowException(ex, "Unable to register account!");
+            } 
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        Register form = new Register();
+        UI.ShowDilague(this, form);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        try{
+            User.Reset(emailAddress.getText());
+            UI.InfoMsg("Please check your email to reset password.", "Password Recovery!");
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to request password reset!");
+        }
+    }//GEN-LAST:event_jLabel7MouseClicked
 
     /**
      * @param args the command line arguments
@@ -231,7 +267,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField appId;
+    private javax.swing.JTextField emailAddress;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -242,6 +278,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField password;
     // End of variables declaration//GEN-END:variables
 }

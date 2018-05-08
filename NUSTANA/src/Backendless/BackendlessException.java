@@ -31,7 +31,7 @@ public class BackendlessException extends Exception {
     }
     public static BackendlessException getException(String response){
         try{
-            return getException(response);
+            return getException(new JSONObject(response));
         }catch(Exception ex){
             return null;
         }

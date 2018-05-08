@@ -7,12 +7,15 @@ package nustana;
 
 import backendless.BackendlessClient;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.json.JSONObject;
 import tools.FileSystem;
+import tools.UI;
 
 /**
  *
@@ -20,29 +23,39 @@ import tools.FileSystem;
  */
 public class NUSTANA {
     public static final String CONFIGURATION_FILE_PATH = "appConfig.json";
-    public static String ApplicationId;
-    public static String SecretKey;
+    private static String ApplicationId;
+    private static String SecretKey;
+    private static BackendlessClient client;
     //Application entry point
     public static void main(String[] args) throws Exception {
         initializeLogger();
-        initializeUIWhite();
+        initializeUI();
         Logger.Log("Application initialized!");
         if(!loadConfig()) {
             //TODO: Reconfiguration
-            JOptionPane.showMessageDialog(null, "Unable to load configuration from file \""+CONFIGURATION_FILE_PATH+"\".","Error!",JOptionPane.ERROR_MESSAGE);
-            new ServerConfig().setVisible(true);
+            UI.ErrMsg("Unable to load configuration from file \""+CONFIGURATION_FILE_PATH+"\".","Error!");
+            ServerConfig form = new ServerConfig();
+            form.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    UI.InfoMsg("Please restart application.", "Configured!");
+                }
+            });
+            form.setVisible(true);
         }
         else{
             Logger.Log("Application configured!");
+            Logger.Log("Initializing backendless client.");
+            client = new BackendlessClient(ApplicationId, SecretKey);
+            new Login().setVisible(true);
         }
-        new Login().setVisible(true);
     }
     //Initialize logger
-    public static void initializeLogger(){
+    private static void initializeLogger(){
         Logger.initialize();
     }
     //Changes UI Theme
-    public static void initializeUIWhite(){
+    private static void initializeUI(){
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -60,32 +73,8 @@ public class NUSTANA {
             java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
-    public static void initializeUIBlack(){
-        UIManager.put( "control", new Color( 128, 128, 128) );
-        UIManager.put( "info", new Color(128,128,128) );
-        UIManager.put( "nimbusBase", new Color( 18, 30, 49) );
-        UIManager.put( "nimbusAlertYellow", new Color( 248, 187, 0) );
-        UIManager.put( "nimbusDisabledText", new Color( 128, 128, 128) );
-        UIManager.put( "nimbusFocus", new Color(115,164,209) );
-        UIManager.put( "nimbusGreen", new Color(176,179,50) );
-        UIManager.put( "nimbusInfoBlue", new Color( 66, 139, 221) );
-        UIManager.put( "nimbusLightBackground", new Color( 18, 30, 49) );
-        UIManager.put( "nimbusOrange", new Color(191,98,4) );
-        UIManager.put( "nimbusRed", new Color(169,46,34) );
-        UIManager.put( "nimbusSelectedText", new Color( 255, 255, 255) );
-        UIManager.put( "nimbusSelectionBackground", new Color( 104, 93, 156) );
-        UIManager.put( "text", new Color( 230, 230, 230) );
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception ex){}
-    }
     //Load configuration
-    public static boolean loadConfig(){
+    private static boolean loadConfig(){
         try{
             JSONObject config = FileSystem.LoadObject(CONFIGURATION_FILE_PATH);
             ApplicationId = config.getString("applicationId");
@@ -95,5 +84,9 @@ public class NUSTANA {
             Logger.Log(ex);
             return false;
         }
+    }
+    //Getter
+    public static BackendlessClient getClient(){
+        return client;
     }
 }

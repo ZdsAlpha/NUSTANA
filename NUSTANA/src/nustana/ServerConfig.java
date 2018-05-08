@@ -40,7 +40,7 @@ public class ServerConfig extends javax.swing.JFrame {
         appId = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Server Configuration");
         setResizable(false);
 
@@ -144,7 +144,7 @@ public class ServerConfig extends javax.swing.JFrame {
             config.put("secretKey", restKey.getText());
             FileSystem.SaveObject(NUSTANA.CONFIGURATION_FILE_PATH, config);
             Logger.Log("Configuration saved.");
-            JOptionPane.showMessageDialog(null,"Configuration saved!", "Reconfigured!",JOptionPane.INFORMATION_MESSAGE);
+            UI.InfoMsg("Configuration saved!", "Reconfigured!");
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex,"Unable to save configuration.");
         }
