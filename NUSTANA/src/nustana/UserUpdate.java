@@ -262,15 +262,21 @@ public class UserUpdate extends javax.swing.JFrame {
         }else if(password.getText().equals("")){
             UI.ErrMsg("Please enter your password.", "Error!");
         }else{
+            
             try{
+                  if (User.getName().equals(profileName.getText()) && User.getPhoneNumber().equals(phoneNumber.getText()) && User.getPassword().equals(password.getText()) && User.getEmail().equals(emailAddress.getText())) {
+                      UI.InfoMsg("Please Enter new information.", "Account Update Error");
+                  }
+                  else{
+        
                 User.UpdateUser(profileName.getText(), emailAddress.getText(), phoneNumber.getText(), password.getText());
                 Logger.Log("Updated account:\t" + emailAddress.getText()+"\t(" + profileName.getText() + ")");
                 UI.InfoMsg("Account register! Please check your email to confirm account.", "Account Registration!");
                 this.dispose();
                NUSTANA.getClient().Logout();
-               
                Login login = new Login();
                login.setVisible(true);
+                  }
             }catch(Exception ex){
                 ExceptionHandling.ShowException(ex, "Unable to Update account!");
             }
