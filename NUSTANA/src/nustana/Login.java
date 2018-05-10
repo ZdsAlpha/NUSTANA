@@ -212,7 +212,7 @@ public class Login extends javax.swing.JFrame {
                 User.Login(emailAddress.getText(), password.getText());
                 UI.InfoMsg("You are logged in as " + User.getName(), "Logged in");
                 UserDesktop userDesktop=new UserDesktop();
-                UI.ShowDilague(this, userDesktop);
+                userDesktop.setVisible(true);
                 this.dispose();
             }catch(Exception ex){
                 ExceptionHandling.ShowException(ex, "Unable to login");
