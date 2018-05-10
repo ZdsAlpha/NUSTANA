@@ -110,6 +110,7 @@ public class BackendlessClient {
         object.put("password", password);
         JSONObject response = new JSONObject(CreateRequest("POST", "users/login",object));
         userToken = response.getString("user-token");
+        response.append("password", password);
         return response;
     }
     
