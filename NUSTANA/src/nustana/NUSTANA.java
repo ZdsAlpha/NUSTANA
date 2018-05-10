@@ -5,53 +5,57 @@
  */
 package nustana;
 
+import backendless.BackendlessClient;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.json.JSONObject;
+import tools.FileSystem;
+import tools.UI;
 
 /**
  *
  * @author Abdul Rahman
  */
 public class NUSTANA {
-    public static final String CONFIGURATION_FILE_PATH = "config.json";
-    public static String ApplicationId;
-    public static String SecretKey;
+    public static final String CONFIGURATION_FILE_PATH = "appConfig.json";
+    private static String ApplicationId;
+    private static String SecretKey;
+    private static BackendlessClient client;
     //Application entry point
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         initializeLogger();
         initializeUI();
         Logger.Log("Application initialized!");
         if(!loadConfig()) {
             //TODO: Reconfiguration
-            JOptionPane.showMessageDialog(null, "Unable to load configuration from file \""+CONFIGURATION_FILE_PATH+"\".");
-            System.exit(0);
+            UI.ErrMsg("Unable to load configuration from file \""+CONFIGURATION_FILE_PATH+"\".","Error!");
+            ServerConfig form = new ServerConfig();
+            form.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    UI.InfoMsg("Please restart application.", "Configured!");
+                }
+            });
+            form.setVisible(true);
         }
-        Logger.Log("Application configured!");   
+        else{
+            Logger.Log("Application configured!");
+            Logger.Log("Initializing backendless client.");
+            client = new BackendlessClient(ApplicationId, SecretKey);
+            new Login().setVisible(true);
+        }
     }
     //Initialize logger
-    public static void initializeLogger(){
+    private static void initializeLogger(){
         Logger.initialize();
     }
     //Changes UI Theme
-    public static void initializeUI(){
-        UIManager.put( "control", new Color( 128, 128, 128) );
-        UIManager.put( "info", new Color(128,128,128) );
-        UIManager.put( "nimbusBase", new Color( 18, 30, 49) );
-        UIManager.put( "nimbusAlertYellow", new Color( 248, 187, 0) );
-        UIManager.put( "nimbusDisabledText", new Color( 128, 128, 128) );
-        UIManager.put( "nimbusFocus", new Color(115,164,209) );
-        UIManager.put( "nimbusGreen", new Color(176,179,50) );
-        UIManager.put( "nimbusInfoBlue", new Color( 66, 139, 221) );
-        UIManager.put( "nimbusLightBackground", new Color( 18, 30, 49) );
-        UIManager.put( "nimbusOrange", new Color(191,98,4) );
-        UIManager.put( "nimbusRed", new Color(169,46,34) );
-        UIManager.put( "nimbusSelectedText", new Color( 255, 255, 255) );
-        UIManager.put( "nimbusSelectionBackground", new Color( 104, 93, 156) );
-        UIManager.put( "text", new Color( 230, 230, 230) );
+    private static void initializeUI(){
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -59,19 +63,30 @@ public class NUSTANA {
                     break;
                 }
             }
-        } catch (Exception ex){}
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ServerConfig.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
     //Load configuration
-    public static boolean loadConfig(){
+    private static boolean loadConfig(){
         try{
-            String content = new String(Files.readAllBytes(Paths.get(CONFIGURATION_FILE_PATH)));
-            JSONObject obj = new JSONObject(content);
-            ApplicationId = obj.getString("applicationId");
-            SecretKey = obj.getString("secretKey");
+            JSONObject config = FileSystem.LoadObject(CONFIGURATION_FILE_PATH);
+            ApplicationId = config.getString("applicationId");
+            SecretKey = config.getString("secretKey");
             return true;
         }catch(Exception ex){
             Logger.Log(ex);
             return false;
         }
+    }
+    //Getter
+    public static BackendlessClient getClient(){
+        return client;
     }
 }
