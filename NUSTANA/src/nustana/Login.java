@@ -206,13 +206,16 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (emailAddress.getText().equals("")){
-            UI.ErrMsg("Please enter your email to request password recovery!", "Error!");
+            UI.ErrMsg("Please enter your email to login!", "Error!");
         }else{
             try{
                 User.Login(emailAddress.getText(), password.getText());
                 UI.InfoMsg("You are logged in as " + User.getName(), "Logged in");
+                UserDesktop userDesktop=new UserDesktop();
+                userDesktop.setVisible(true);
+                this.dispose();
             }catch(Exception ex){
-                ExceptionHandling.ShowException(ex, "Unable to register account!");
+                ExceptionHandling.ShowException(ex, "Unable to login");
             } 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
