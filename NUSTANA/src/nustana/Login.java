@@ -211,8 +211,11 @@ public class Login extends javax.swing.JFrame {
             try{
                 User.Login(emailAddress.getText(), password.getText());
                 UI.InfoMsg("You are logged in as " + User.getName(), "Logged in");
+                UserDesktop userDesktop=new UserDesktop();
+                UI.ShowDilague(this, userDesktop);
+                this.dispose();
             }catch(Exception ex){
-                ExceptionHandling.ShowException(ex, "Unable to register account!");
+                ExceptionHandling.ShowException(ex, "Unable to login");
             } 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
