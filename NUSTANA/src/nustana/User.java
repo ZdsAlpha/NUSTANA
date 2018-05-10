@@ -42,11 +42,6 @@ public class User {
     }
     
     public static JSONObject UpdateUser(String userName, String userEmail, String userPhoneNumber,  String userPassword )throws IOException,BackendlessException{
-         if (name==userName && phoneNumber==userPhoneNumber && password== userPassword && email==userEmail){
-             UI.InfoMsg("Please enter new information", "Account Registration!");
-             return null;
-        }
-         else{
         JSONObject properties = new JSONObject();
         properties.put("name", userName);
         properties.put("phoneNumber",  userPhoneNumber);
@@ -58,7 +53,6 @@ public class User {
         phoneNumber = properties.getString("phoneNumber");
         password = properties.getString("password");
         return obj;
-    }
     }
     public static JSONObject Reset(String email) throws IOException , BackendlessException{
         return NUSTANA.getClient().ResetPassword(email);
