@@ -86,6 +86,7 @@ public class Register extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Register");
+        jLabel2.setToolTipText("");
 
         profileName.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         profileName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -293,7 +294,7 @@ public class Register extends javax.swing.JFrame {
             UI.ErrMsg("Please enter your password.", "Error!");
         }else{
             try{
-                User.Register(profileName.getText(), emailAddress.getText(), phoneNumber.getText(), password.getText());
+                Profile.Register(profileName.getText(), emailAddress.getText(), phoneNumber.getText(), password.getText());
                 Logger.Log("Registered account:\t" + emailAddress.getText()+"\t(" + profileName.getText() + ")");
                 UI.InfoMsg("Account register! Please check your email to confirm account.", "Account Registration!");
             }catch(Exception ex){

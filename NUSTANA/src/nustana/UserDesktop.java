@@ -235,8 +235,7 @@ public class UserDesktop extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Profile pf = new Profile();
-        pf.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 

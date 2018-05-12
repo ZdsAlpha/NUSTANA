@@ -118,12 +118,6 @@ public class BackendlessClient {
         JSONObject response = new JSONObject(CreateRequest("PUT", "users/"+userId, object));
         return response;
     }
-    public synchronized JSONObject UpdateUser(String userId,String email,String password,JSONObject properties) throws IOException, BackendlessException{
-        if(properties==null) properties = new JSONObject();
-        properties.put("email",email);
-        properties.put("password",password);
-        return UpdateUser(userId, properties);
-    }
     
     public synchronized JSONObject Logout() throws IOException, BackendlessException{
         try{
