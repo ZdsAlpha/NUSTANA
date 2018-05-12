@@ -159,11 +159,23 @@ public class BackendlessClient {
         return new JSONArray(response);
     }
     public synchronized JSONArray GetObjects(String table,int offset) throws IOException , BackendlessException{
-        String response = CreateRequest("GET","data/"+table+"?offset"+offset);
+        String response = CreateRequest("GET","data/"+table+"?offset="+offset);
         return new JSONArray(response);
     }
     public synchronized JSONArray GetObjects(String table,int offset,int pageSize) throws IOException , BackendlessException{
-        String response = CreateRequest("GET","data/"+table+"?offset"+offset+",pageSize="+pageSize);
+        String response = CreateRequest("GET","data/"+table+"?offset="+offset+"&pageSize="+pageSize);
+        return new JSONArray(response);
+    }
+    public synchronized JSONArray GetObjects(String table,String where) throws IOException,BackendlessException{
+        String response = CreateRequest("GET","data/"+table+"?where=" + URLEncoder.encode(where, "UTF-8"));
+        return new JSONArray(response);
+    }
+    public synchronized JSONArray GetObjects(String table,String where,int offset) throws IOException,BackendlessException{
+        String response = CreateRequest("GET","data/"+table+"?where=" + URLEncoder.encode(where, "UTF-8")+"&offset="+offset);
+        return new JSONArray(response);
+    }
+    public synchronized JSONArray GetObjects(String table,String where,int offset,int pageSize) throws IOException,BackendlessException{
+        String response = CreateRequest("GET","data/"+table+"?where=" + URLEncoder.encode(where, "UTF-8")+"&offset="+offset+"&pageSize="+pageSize);
         return new JSONArray(response);
     }
 }

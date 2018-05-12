@@ -5,6 +5,8 @@
  */
 package nustana;
 
+import org.json.JSONArray;
+import shop.ShopRegistration;
 import tools.ExceptionHandling;
 import tools.UI;
 
@@ -84,15 +86,20 @@ public class Selection extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shop.png"))); // NOI18N
         jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(84, 127, 206));
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(84, 127, 206));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("User");
 
         jLabel5.setBackground(new java.awt.Color(84, 127, 206));
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(84, 127, 206));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Shop");
@@ -204,6 +211,20 @@ public class Selection extends javax.swing.JFrame {
             ExceptionHandling.ShowException(ex, "Unable to logout!");
         }
     }//GEN-LAST:event_formWindowClosed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        try{
+            JSONArray shops = shop.Shop.retrieveShops();
+            if(shops.length()==0){
+                UI.InfoMsg("You don't have any shop registered! Please register your shop.", "Shop registration!");
+                UI.ShowDilague(this, new ShopRegistration());
+            }else{
+                //Show shop UI
+            }
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to show Shop UI!");
+        }
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments

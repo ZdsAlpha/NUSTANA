@@ -72,6 +72,9 @@ public class Profile {
     public static String getPhoneNumber(){
         return phoneNumber;
     }
+    public static String getUserId(){
+        return userID;
+    }
     public static boolean isDisabled(){
         return userStatus.equals("DISABLED");
     }
