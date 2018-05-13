@@ -81,6 +81,11 @@ public class Selection extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/user.png"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shop.png"))); // NOI18N
@@ -225,6 +230,11 @@ public class Selection extends javax.swing.JFrame {
             ExceptionHandling.ShowException(ex, "Unable to show Shop UI!");
         }
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        UserDesktop ud=new UserDesktop();
+        UI.ShowDilague(this, ud);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments

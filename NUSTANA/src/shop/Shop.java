@@ -17,6 +17,6 @@ import nustana.*;
  */
 public class Shop {
     public static JSONArray retrieveShops() throws IOException, BackendlessException{
-        return NUSTANA.getClient().GetObjects("Shops", "ownerId='"+Profile.getUserId()+"'");
+        return NUSTANA.getClient().GetObjects("Shops", "ownerId='"+Profile.getUserID()+"'");
     }
 }

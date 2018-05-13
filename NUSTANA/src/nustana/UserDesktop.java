@@ -51,9 +51,6 @@ public class UserDesktop extends javax.swing.JFrame {
         table1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,7 +122,7 @@ public class UserDesktop extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(table1);
 
-        jButton3.setText("Close");
+        jButton3.setText("Back");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -139,68 +136,37 @@ public class UserDesktop extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Refresh");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("MyProfile");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("LogOut");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton4)
-                .addGap(372, 372, 372)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addGap(16, 16, 16))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addComponent(jButton3)
-                .addGap(309, 309, 309)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 358, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(42, 42, 42))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(455, 455, 455)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 469, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5))
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(jButton3))
                 .addGap(39, 39, 39))
         );
 
@@ -212,44 +178,14 @@ public class UserDesktop extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int[] rows = table.getSelectedRows();
-        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        int[] rows = table1.getSelectedRows();
+        DefaultTableModel model = (DefaultTableModel)table1.getModel();
         for(int index : rows){
-            OrderWindow ow = new OrderWindow(new javax.swing.JFrame(), true,table,NUSTANA.getClient(),(String)model.getValueAt(index, 0),String.valueOf(model.getValueAt(index, 1)));
+            Order order=new Order((String)model.getValueAt(index, 0), String.valueOf(model.getValueAt(index, 1)) );
+            OrderWindow ow = new OrderWindow(order);
             ow.setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{
-            JSONArray array = NUSTANA.getClient().GetObjects("Inventory");
-            DefaultTableModel model = (DefaultTableModel)table1.getModel();
-            model.setRowCount(0);
-            for(int i = 0;i<array.length();i++){
-                JSONObject obj = array.getJSONObject(i);
-               model.addRow(new Object[] {obj.getString("Name"),obj.getInt("Price"),obj.getString("Description")});
-            }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Unable to refresh.\n"+ex.toString(), "Error!", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
-        this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       try{
-           NUSTANA.getClient().Logout();
-            this.dispose();
-            Login login=new Login();
-            login.setVisible(true);
-       }
-       catch(Exception e){
-           JOptionPane.showMessageDialog(null, "Logout Error");
-       }
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,10 +224,7 @@ public class UserDesktop extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
