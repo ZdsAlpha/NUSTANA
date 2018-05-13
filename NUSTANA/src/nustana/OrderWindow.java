@@ -28,9 +28,9 @@ public class OrderWindow extends javax.swing.JFrame {
         initComponents();
         order=o;
         this.totalPrice.setText("Total= Rs.");
-        this.itemName.setText(order.getorderName());
-        this.priceDisplay.setText("Price= Rs."+order.getPrice());
-        price=Integer.valueOf(order.getPrice());
+        this.itemName.setText(order.getItemName());
+        this.priceDisplay.setText("Price= Rs."+order.getItemPrice());
+        price=Integer.valueOf(order.getItemPrice());
     }
        
  
