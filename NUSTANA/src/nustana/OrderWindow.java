@@ -112,14 +112,14 @@ public class OrderWindow extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(84, 127, 206));
-        jLabel5.setText("Secondary Phone Number");
+        jLabel5.setText("Secondary Phone Number (optional)");
 
         totalPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         totalPrice.setText("Total=");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(84, 127, 206));
-        jLabel7.setText("Notes");
+        jLabel7.setText("Notes (optional)");
 
         jButton2.setBackground(new java.awt.Color(84, 127, 206));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -155,7 +155,7 @@ public class OrderWindow extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(84, 127, 206));
-        jLabel8.setText("Address");
+        jLabel8.setText("Address *");
 
         basicPrice.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         basicPrice.setForeground(new java.awt.Color(84, 127, 206));
