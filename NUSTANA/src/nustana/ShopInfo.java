@@ -98,7 +98,7 @@ public class ShopInfo {
     public String toString() {
         return name;
     }
-    private static ShopInfo[] ProcessItems(JSONArray objects){
+    private static ShopInfo[] ProcessShops(JSONArray objects){
         ShopInfo[] items = new ShopInfo[objects.length()];
         for(int i = 0; i < objects.length();i++){
             JSONObject obj = objects.getJSONObject(i);
@@ -106,12 +106,12 @@ public class ShopInfo {
         }
         return items;
     }
-    public static ShopInfo[] GetItems() throws IOException, BackendlessException{
+    public static ShopInfo[] GetShops() throws IOException, BackendlessException{
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE);
-        return ProcessItems(objects);
+        return ProcessShops(objects);
     }
-    public static ShopInfo[] GetItems(String profileId) throws IOException , BackendlessException{
+    public static ShopInfo[] GetShops(String profileId) throws IOException , BackendlessException{
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "profileId='" + profileId + "'");
-        return ProcessItems(objects);
+        return ProcessShops(objects);
     }
 }

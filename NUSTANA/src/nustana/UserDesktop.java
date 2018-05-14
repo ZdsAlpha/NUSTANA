@@ -178,13 +178,7 @@ public class UserDesktop extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int[] rows = table1.getSelectedRows();
-        DefaultTableModel model = (DefaultTableModel)table1.getModel();
-        for(int index : rows){
-            Order order=new Order((String)model.getValueAt(index, 0), String.valueOf(model.getValueAt(index, 1)) );
-            OrderWindow ow = new OrderWindow(order);
-            ow.setVisible(true);
-        }
+        //Will be implemented with new archetecture
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
