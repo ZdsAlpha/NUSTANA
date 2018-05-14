@@ -27,7 +27,7 @@ public class Order {
         order.put("clientName", Profile.getName());
         order.put("email", Profile.getEmail());
         order.put("primaryPhoneNumber", Profile.getPhoneNumber());
-        order.put("userID", Profile.getUserID());
+        order.put("userID", Profile.getProfileId());
         order.put("itemName",itemName);
         return order;
     }
