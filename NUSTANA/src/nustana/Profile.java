@@ -18,12 +18,12 @@ import tools.UI;
 public class Profile {
     public static final String CONFIGURATION_FILE_PATH = "profileConfig.json";
     private static boolean isLoggedin = false;
+    private static String profileId;
     private static String name;
     private static String email;
     private static String phoneNumber;
     private static String userStatus;
     private static String password;
-    private static String userID;
     public static JSONObject Register(String name,String email,String phoneNumber,String password) throws IOException , BackendlessException{
         JSONObject properties = new JSONObject();
         properties.put("name", name);
@@ -38,11 +38,11 @@ public class Profile {
         phoneNumber = properties.getString("phoneNumber");
         userStatus = properties.getString("userStatus");
         password = properties.getString("password");
-        userID=properties.getString("objectId");
+        profileId=properties.getString("objectId");
         return properties;
     }
     public static JSONObject Update(JSONObject properties)throws IOException,BackendlessException{
-        return NUSTANA.getClient().UpdateUser(userID, properties);
+        return NUSTANA.getClient().UpdateUser(profileId, properties);
     }
     public static JSONObject Update(String name,String phoneNumber,String password) throws IOException, BackendlessException{
         JSONObject properties = new JSONObject();
@@ -72,8 +72,8 @@ public class Profile {
     public static String getPhoneNumber(){
         return phoneNumber;
     }
-    public static String getUserID(){
-        return userID;
+    public static String getProfileId(){
+        return profileId;
     }
     public static boolean isDisabled(){
         return userStatus.equals("DISABLED");

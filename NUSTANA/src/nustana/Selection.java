@@ -6,6 +6,7 @@
 package nustana;
 
 import org.json.JSONArray;
+import shop.ShopPanel;
 import shop.ShopRegistration;
 import tools.ExceptionHandling;
 import tools.UI;
@@ -81,11 +82,6 @@ public class Selection extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/user.png"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shop.png"))); // NOI18N
@@ -219,22 +215,15 @@ public class Selection extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         try{
-            JSONArray shops = shop.Shop.retrieveShops();
-            if(shops.length()==0){
-                UI.InfoMsg("You don't have any shop registered! Please register your shop.", "Shop registration!");
-                UI.ShowDilague(this, new ShopRegistration());
-            }else{
-                //Show shop UI
-            }
+            shop.Shop.Login();
+            UI.ShowDilague(this, new ShopPanel());
+        }catch(ArrayIndexOutOfBoundsException ex){
+            UI.InfoMsg("You don't have any shop registered! Please register your shop.", "Shop registration!");
+            UI.ShowDilague(this, new ShopRegistration());
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to show Shop UI!");
         }
     }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        UserDesktop ud=new UserDesktop();
-        UI.ShowDilague(this, ud);
-    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments

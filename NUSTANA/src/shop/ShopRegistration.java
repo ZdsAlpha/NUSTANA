@@ -265,11 +265,11 @@ public class ShopRegistration extends javax.swing.JFrame {
                 shop.put("address",shopAddress.getText());
                 shop.put("description",description.getText());
                 NUSTANA.getClient().CreateObject("Shops", shop);
-                UI.InfoMsg("Shop Registered", "Success");
+                this.dispose();
+                UI.InfoMsg("Your shop has been registered successfully!", "Shop Registration");
             }catch(Exception ex){
                 ExceptionHandling.ShowException(ex, "Unable to register shop!");
             }
-            this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
