@@ -72,7 +72,7 @@ public class Profile {
     public static String getPhoneNumber(){
         return phoneNumber;
     }
-    public static String getUserId(){
+    public static String getUserID(){
         return userID;
     }
     public static boolean isDisabled(){

@@ -9,29 +9,31 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONObject;
+import tools.UI;
 /**
  *
  * @author saifu
  */
 public class OrderWindow extends javax.swing.JFrame {
-    private JTable table;
-    private BackendlessClient client;
-    private String basic_price;
+    private Order order;
+    private int price;
+
     /**
      * Creates new form OrderWindow
      * @param table
      * @param client
      * @param item_Name
      */      
-       public OrderWindow(java.awt.Frame parent, boolean modal,JTable table,BackendlessClient client,String item_Name,String basic_price) {
+       public OrderWindow(Order o) {
         initComponents();
-        this.table = table;
-        this.client = client;
-        this.item_Name.setText(item_Name);
-        this.basic_price=basic_price;
-        this.price.setText("Total= 0 Rs/-");
-        this.price_display.setText("Price= "+basic_price+"Rs/-");
+        order=o;
+        this.totalPrice.setText("Total= Rs.");
+        this.itemName.setText(order.getItemName());
+        this.priceDisplay.setText("Price= Rs."+order.getItemPrice());
+        price=Integer.valueOf(order.getItemPrice());
     }
+       
+ 
  
 
     /**
@@ -43,201 +45,263 @@ public class OrderWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        no_of_items = new javax.swing.JLabel();
-        spinner = new javax.swing.JSpinner();
-        nameBox = new javax.swing.JLabel();
-        client_Name = new javax.swing.JTextField();
-        phoneNoBox = new javax.swing.JLabel();
-        phone_No = new javax.swing.JTextField();
-        addressBox = new javax.swing.JLabel();
+        itemCount = new javax.swing.JSpinner();
         address = new javax.swing.JTextField();
-        notesBox = new javax.swing.JLabel();
         notes = new javax.swing.JTextField();
+        secondaryPhoneNumber = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        totalPrice = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        price = new javax.swing.JLabel();
-        item_Name = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        price_display = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        basicPrice = new javax.swing.JLabel();
+        priceDisplay = new javax.swing.JLabel();
+        basicPrice2 = new javax.swing.JLabel();
+        itemName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        no_of_items.setText("No. of items");
-
-        spinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        spinner.addChangeListener(new javax.swing.event.ChangeListener() {
+        itemCount.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        itemCount.setModel(new javax.swing.SpinnerNumberModel());
+        itemCount.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spinnerStateChanged(evt);
+                itemCountStateChanged(evt);
             }
         });
-        spinner.addMouseListener(new java.awt.event.MouseAdapter() {
+        itemCount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                spinnerMouseClicked(evt);
+                itemCountMouseClicked(evt);
             }
         });
-        spinner.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        itemCount.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                spinnerPropertyChange(evt);
+                itemCountPropertyChange(evt);
             }
         });
-        spinner.addKeyListener(new java.awt.event.KeyAdapter() {
+        itemCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                spinnerKeyPressed(evt);
+                itemCountKeyPressed(evt);
             }
         });
 
-        nameBox.setText("Name");
-
-        client_Name.addActionListener(new java.awt.event.ActionListener() {
+        address.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        address.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        address.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                client_NameActionPerformed(evt);
+                addressActionPerformed(evt);
             }
         });
 
-        phoneNoBox.setText("Phone No.");
+        notes.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        notes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        notes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notesActionPerformed(evt);
+            }
+        });
 
-        addressBox.setText("Address");
+        secondaryPhoneNumber.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        secondaryPhoneNumber.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        secondaryPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                secondaryPhoneNumberActionPerformed(evt);
+            }
+        });
 
-        address.setAutoscrolls(false);
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel5.setText("Secondary Phone Number (optional)");
 
-        notesBox.setText("Notes");
+        totalPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        totalPrice.setText("Total=");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel7.setText("Notes (optional)");
+
+        jButton2.setBackground(new java.awt.Color(84, 127, 206));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Order");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton2MouseExited(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        price.setText("Total=0 Rs/-");
-
-        item_Name.setText("Item_Name");
-
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setBackground(new java.awt.Color(84, 127, 206));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Cancel");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton3MouseExited(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        price_display.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        price_display.setText("Price=");
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel8.setText("Address *");
+
+        basicPrice.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        basicPrice.setForeground(new java.awt.Color(84, 127, 206));
+        basicPrice.setText("New Order");
+
+        priceDisplay.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        priceDisplay.setText("Price=");
+
+        basicPrice2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        basicPrice2.setForeground(new java.awt.Color(84, 127, 206));
+        basicPrice2.setText("Item:");
+
+        itemName.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        itemName.setText("Name");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(no_of_items)
-                            .addComponent(nameBox)
-                            .addComponent(phoneNoBox)
-                            .addComponent(addressBox)
-                            .addComponent(notesBox))
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
-                                .addComponent(price))
-                            .addComponent(client_Name)
-                            .addComponent(phone_No)
-                            .addComponent(address)
-                            .addComponent(notes, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
-                        .addComponent(price_display))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(item_Name)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                            .addComponent(basicPrice2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(itemName)
+                                    .addGap(70, 70, 70)
+                                    .addComponent(itemCount, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(44, 44, 44)
+                                    .addComponent(priceDisplay)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(totalPrice))
+                                .addComponent(notes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(secondaryPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(address, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel8))
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(basicPrice)
+                        .addGap(344, 344, 344))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(item_Name)
-                .addGap(26, 26, 26)
+                .addComponent(basicPrice)
+                .addGap(47, 47, 47)
+                .addComponent(basicPrice2)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(no_of_items, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(price)
-                    .addComponent(price_display))
+                    .addComponent(itemName)
+                    .addComponent(itemCount, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(priceDisplay)
+                    .addComponent(totalPrice))
+                .addGap(58, 58, 58)
+                .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(client_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameBox))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(phoneNoBox)
-                    .addComponent(phone_No, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addressBox)
-                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(notesBox)
-                    .addComponent(notes, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(secondaryPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(notes, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(57, 57, 57))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void client_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_client_NameActionPerformed
-        
-    }//GEN-LAST:event_client_NameActionPerformed
+    private void itemCountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemCountKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-              this.setVisible(false);
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_itemCountKeyPressed
 
-    private void spinnerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spinnerKeyPressed
+    private void itemCountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_itemCountPropertyChange
 
-    }//GEN-LAST:event_spinnerKeyPressed
+    }//GEN-LAST:event_itemCountPropertyChange
 
-    private void spinnerPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spinnerPropertyChange
+    private void itemCountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemCountMouseClicked
 
-    }//GEN-LAST:event_spinnerPropertyChange
+    }//GEN-LAST:event_itemCountMouseClicked
 
-    private void spinnerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spinnerMouseClicked
+    private void itemCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_itemCountStateChanged
+        this.totalPrice.setText("Total= Rs. "+(Integer.valueOf(price)*(int)itemCount.getValue()));
+    }//GEN-LAST:event_itemCountStateChanged
 
-    }//GEN-LAST:event_spinnerMouseClicked
+    private void addressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addressActionPerformed
 
-    private void spinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerStateChanged
-        this.price.setText("Total= "+(Integer.valueOf(basic_price)*(int)spinner.getValue())+" Rs/-");
-    }//GEN-LAST:event_spinnerStateChanged
+    private void notesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_notesActionPerformed
+
+    private void secondaryPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondaryPhoneNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_secondaryPhoneNumberActionPerformed
+
+    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseExited
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                           try{
-                JSONObject obj = new JSONObject();
-                obj.put("Item_Name",item_Name.getText());
-                obj.put("Price", (Integer.valueOf(basic_price)*(int)spinner.getValue()));
-                obj.put("Address",address.getText());
-                obj.put("Client_Name", client_Name.getText());
-                obj.put("No_of_Items",spinner.getValue());
-                obj.put("Phone_No", phone_No.getText());
-                obj.put("Notes",notes.getText());
-                JSONObject ret = client.CreateObject("Orders", obj);
-                this.setVisible(false);
-                dispose();
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "Unable to create item.\n"+ex.toString(), "Error!", JOptionPane.ERROR_MESSAGE);
+        try{
+            JSONObject newOrder = order.newOrder();
+            if(address!=null) {  
+            newOrder.put("secondaryPhoneNumber", secondaryPhoneNumber.getText());
+            newOrder.put("address", address.getText());
+            newOrder.put("Notes",notes.getText());
+            newOrder.put("NoOfItems",(int)itemCount.getValue());
+            newOrder.put("totalPrice",Integer.valueOf(price)*(int)itemCount.getValue());
+            JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
+            UI.InfoMsg("Order successfully placed", "Success");
+            this.dispose();
             }
+            else{
+                UI.ErrMsg("Please specify an address", "NO ADDRESS");
+            }
+        }
+            catch (Exception e){
+                    UI.ErrMsg("Unable to place order", "Order Placement Error");
+                    }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseExited
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,19 +310,18 @@ public class OrderWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField address;
-    private javax.swing.JLabel addressBox;
-    private javax.swing.JTextField client_Name;
-    private javax.swing.JLabel item_Name;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel basicPrice;
+    private javax.swing.JLabel basicPrice2;
+    private javax.swing.JSpinner itemCount;
+    private javax.swing.JLabel itemName;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel nameBox;
-    private javax.swing.JLabel no_of_items;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField notes;
-    private javax.swing.JLabel notesBox;
-    private javax.swing.JLabel phoneNoBox;
-    private javax.swing.JTextField phone_No;
-    private javax.swing.JLabel price;
-    private javax.swing.JLabel price_display;
-    private javax.swing.JSpinner spinner;
+    private javax.swing.JLabel priceDisplay;
+    private javax.swing.JTextField secondaryPhoneNumber;
+    private javax.swing.JLabel totalPrice;
     // End of variables declaration//GEN-END:variables
 }
