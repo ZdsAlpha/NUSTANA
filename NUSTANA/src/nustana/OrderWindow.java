@@ -28,9 +28,9 @@ public class OrderWindow extends javax.swing.JFrame {
         initComponents();
         order=o;
         this.totalPrice.setText("Total= Rs.");
-        this.itemName.setText(order.getItemName());
-        this.priceDisplay.setText("Price= Rs."+order.getItemPrice());
-        price=Integer.valueOf(order.getItemPrice());
+        //this.itemName.setText(order.getItemName());
+        //this.priceDisplay.setText("Price= Rs."+order.getItemPrice());
+        //price=Integer.valueOf(order.getItemPrice());
     }
        
  
@@ -274,24 +274,24 @@ public class OrderWindow extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
-            JSONObject newOrder = order.newOrder();
-            if(address!=null) {  
-            newOrder.put("secondaryPhoneNumber", secondaryPhoneNumber.getText());
-            newOrder.put("address", address.getText());
-            newOrder.put("Notes",notes.getText());
-            newOrder.put("NoOfItems",(int)itemCount.getValue());
-            newOrder.put("totalPrice",Integer.valueOf(price)*(int)itemCount.getValue());
-            JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
-            UI.InfoMsg("Order successfully placed", "Success");
+            //JSONObject newOrder = order.newOrder();
+            //if(address!=null) {  
+            //newOrder.put("secondaryPhoneNumber", secondaryPhoneNumber.getText());
+            //newOrder.put("address", address.getText());
+            //newOrder.put("Notes",notes.getText());
+            //newOrder.put("NoOfItems",(int)itemCount.getValue());
+            //newOrder.put("totalPrice",Integer.valueOf(price)*(int)itemCount.getValue());
+            //JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
+            //UI.InfoMsg("Order successfully placed", "Success");
             this.dispose();
-            }
-            else{
-                UI.ErrMsg("Please specify an address", "NO ADDRESS");
-            }
+            //}
+            //else{
+            //    UI.ErrMsg("Please specify an address", "NO ADDRESS");
+            //}
         }
             catch (Exception e){
                     UI.ErrMsg("Unable to place order", "Order Placement Error");
-                    }
+            }
         
     }//GEN-LAST:event_jButton2ActionPerformed
 

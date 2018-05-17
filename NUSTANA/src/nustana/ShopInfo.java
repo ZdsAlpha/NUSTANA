@@ -98,6 +98,17 @@ public class ShopInfo {
     public String toString() {
         return name;
     }
+    public static ShopInfo Create(String name,String phoneNumber,String address,String description) throws IOException , BackendlessException{
+        JSONObject shop = new JSONObject();
+        shop.put("name", name);
+        shop.put("phoneNumber",phoneNumber);
+        shop.put("address",address);
+        shop.put("description",description);
+        return new ShopInfo(NUSTANA.getClient().CreateObject(TABLE, shop));
+    }
+    public static ShopInfo Fetch(String shopId) throws IOException , BackendlessException{
+        return new ShopInfo(NUSTANA.getClient().GetObject(TABLE, shopId));
+    }
     private static ShopInfo[] ProcessShops(JSONArray objects){
         ShopInfo[] items = new ShopInfo[objects.length()];
         for(int i = 0; i < objects.length();i++){

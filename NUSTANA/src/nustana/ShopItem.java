@@ -102,6 +102,17 @@ public class ShopItem {
     public String toString() {
         return name;
     }
+    public static ShopItem Create(String shopId,String name,int price,String description) throws IOException , BackendlessException{
+        JSONObject obj = new JSONObject();
+        obj.put("shopId", shopId);
+        obj.put("name",name);
+        obj.put("price",price);
+        obj.put("description",description);
+        return new ShopItem(NUSTANA.getClient().CreateObject(TABLE, obj));
+    }
+    public static ShopItem Fetch(String itemId) throws IOException,BackendlessException{
+        return new ShopItem(NUSTANA.getClient().GetObject(TABLE, itemId));
+    }
     private static ShopItem[] ProcessItems(JSONArray objects){
         ShopItem[] items = new ShopItem[objects.length()];
         for(int i = 0; i < objects.length();i++){

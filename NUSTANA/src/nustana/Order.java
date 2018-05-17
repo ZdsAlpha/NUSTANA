@@ -131,6 +131,20 @@ public class Order {
     public String toString() {
         return orderId;
     }
+    public static Order Create(String shopId,String itemId,int quantity,String status,String phoneNumber,String address,String comments) throws IOException,BackendlessException{
+        JSONObject obj = new JSONObject();
+        obj.put("shopId", shopId);
+        obj.put("itemId", itemId);
+        obj.put("quantity",quantity);
+        obj.put("status",status);
+        obj.put("phoneNumber",phoneNumber);
+        obj.put("address",address);
+        obj.put("comments",comments);
+        return new Order(NUSTANA.getClient().CreateObject(TABLE, obj));
+    }
+    public static Order Fetch(String orderId) throws IOException,BackendlessException{
+        return new Order(NUSTANA.getClient().GetObject(TABLE, orderId));
+    }
     private static Order[] ProcessOrders(JSONArray objects){
         Order[] items = new Order[objects.length()];
         for(int i = 0; i < objects.length();i++){
