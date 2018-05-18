@@ -39,7 +39,7 @@ public class ShopInfo {
         name = obj.getString("name");
         phoneNumber = obj.getString("phoneNumber");
         address = obj.getString("address");
-        description = obj.getString("desccription");
+        description = obj.getString("description");
     }
     public String getShopId(){
         return shopId;
@@ -122,7 +122,7 @@ public class ShopInfo {
         return ProcessShops(objects);
     }
     public static ShopInfo[] GetShops(String profileId) throws IOException , BackendlessException{
-        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "profileId='" + profileId + "'");
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "ownerId='" + profileId + "'");
         return ProcessShops(objects);
     }
 }

@@ -5,6 +5,7 @@
  */
 package nustana;
 
+import tools.ExceptionHandling;
 import tools.UI;
 
 /**
@@ -12,11 +13,22 @@ import tools.UI;
  * @author Abdul Rahman
  */
 public class ShopInfoBox extends javax.swing.JFrame {
+    public final ShopInfo SHOP;
     /**
      * Creates new form ProfileInfoBox
      */
-    public ShopInfoBox() {
+    public ShopInfoBox(ShopInfo shop) {
+        this.SHOP = shop;
         initComponents();
+        this.setTitle(SHOP.getName());
+        this.shopId.setText(SHOP.getShopId());
+        this.name.setText(SHOP.getName());
+        this.phoneNumber.setText(SHOP.getPhoneNumber());
+        this.address.setText(SHOP.getAddress());
+        this.description.setText(SHOP.getDescription());
+    }
+    public ShopInfoBox(String shopId){
+        this(new ShopInfo(shopId));
     }
 
     /**
@@ -31,6 +43,16 @@ public class ShopInfoBox extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        shopId = new javax.swing.JLabel();
+        phoneNumber = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        address = new javax.swing.JLabel();
+        description = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -50,28 +72,122 @@ public class ShopInfoBox extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(84, 127, 206));
-        jLabel5.setText("Object Id:");
+        jLabel5.setText("Shop Id:");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel6.setText("Name:");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel7.setText("Address:");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel8.setText("Phone Number:");
+
+        shopId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        shopId.setForeground(new java.awt.Color(84, 127, 206));
+        shopId.setText("XXXXXXXXXX");
+
+        phoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        phoneNumber.setForeground(new java.awt.Color(84, 127, 206));
+        phoneNumber.setText("XXXXXXXXXX");
+
+        name.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        name.setForeground(new java.awt.Color(84, 127, 206));
+        name.setText("XXXXXXXXXX");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel13.setText("Description:");
+
+        address.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        address.setForeground(new java.awt.Color(84, 127, 206));
+        address.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        address.setText("XXXXXXXXXX");
+        address.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        address.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        description.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        description.setForeground(new java.awt.Color(84, 127, 206));
+        description.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        description.setText("XXXXXXXXXX");
+        description.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        description.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jButton2.setBackground(new java.awt.Color(84, 127, 206));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("View Profile");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(513, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(description, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(12, 12, 12))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(96, 96, 96)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(phoneNumber)
+                                    .addComponent(shopId)
+                                    .addComponent(name)))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel13))
+                        .addContainerGap(315, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(shopId))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(name))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(phoneNumber))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addComponent(description, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -94,13 +210,31 @@ public class ShopInfoBox extends javax.swing.JFrame {
         UI.CloseFrame(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            (new ProfileInfoBox(SHOP.getProfileId())).setVisible(true);
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to show profile info!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel address;
+    private javax.swing.JLabel description;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel phoneNumber;
+    private javax.swing.JLabel shopId;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package nustana;
 
 import backendless.BackendlessException;
 import java.io.IOException;
+import tools.ExceptionHandling;
 import tools.UI;
 
 /**
@@ -52,6 +53,7 @@ public class ProfileInfoBox extends javax.swing.JFrame {
         phoneNumber = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
         userStatus = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -109,6 +111,17 @@ public class ProfileInfoBox extends javax.swing.JFrame {
         userStatus.setForeground(new java.awt.Color(84, 127, 206));
         userStatus.setText("XXXXXXXXXX");
 
+        jButton2.setBackground(new java.awt.Color(84, 127, 206));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("View Shop");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,7 +130,8 @@ public class ProfileInfoBox extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -165,7 +179,9 @@ public class ProfileInfoBox extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(userStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -188,6 +204,19 @@ public class ProfileInfoBox extends javax.swing.JFrame {
         UI.CloseFrame(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            ShopInfo[] shops = ShopInfo.GetShops(PROFILE.getProfileId());
+            if(shops.length==0){
+                UI.InfoMsg(PROFILE.getName() + " has no shop registered.", "Shop Info");
+            }else{
+                (new ShopInfoBox(shops[0])).setVisible(true);
+            }
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to show profile info!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -195,6 +224,7 @@ public class ProfileInfoBox extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel email;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
