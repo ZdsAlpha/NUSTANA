@@ -9,24 +9,24 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import tools.UI;
 /**
  *
  * @author saifu
  */
 public class OrderWindow extends javax.swing.JFrame {
-    private Order order;
-    private int price;
-   
-       public OrderWindow(Order o) {
-         initComponents();
-        order=o;
-        this.totalPrice.setText("Total= Rs.");
+    private String price;
+       public OrderWindow(String itemName , String price ) {
         try{
-            JSONObject obj =NUSTANA.getClient().GetObject("Items", order.getItemId());
-            this.itemName.setText(NUSTANA.getClient().GetObject("Items", order.getItemId()).getString("name"));
-            this.priceDisplay.setText("Price= Rs."+obj.getInt("price"));
-            price=Integer.valueOf(obj.getInt("price"));
+        JSONArray array = NUSTANA.getClient().GetObjects("Items","shopId='" + NewOrderInfo.getShopId() + "' and name='" + itemName + "'");
+        JSONObject obj = array.getJSONObject(0);
+        NewOrderInfo.setItemId(obj.getString("objectId"));
+         initComponents();
+         this.price=price;
+        this.totalPrice.setText("Total= Rs.");
+         this.itemName.setText(itemName);
+         this.priceDisplay.setText("Price= "+price);
     }
         catch(Exception e){
             UI.ErrMsg("Error loading window", "Window loading error");
@@ -252,44 +252,29 @@ public class OrderWindow extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
             JSONObject newOrder = new JSONObject();
-            if(address!=null) {
-                newOrder.put("status",order.getStatus());
-                newOrder.put("shopID",order.getShopId());
-                newOrder.put("phoneNumber",Profile.getPhoneNumber());
-                newOrder.put("itemID", order.getItemId());
+            if( !(address.getText().equals("")) && (int)itemCount.getValue()!=0) {
+                newOrder.put("status", "pending");
+                newOrder.put("itemID", NewOrderInfo.getItemId());
+                newOrder.put("shopId", NewOrderInfo.getShopId());
+                newOrder.put("profileId", NewOrderInfo.getProfileId());
+                newOrder.put("phoneNumber", NewOrderInfo.getPhoneNumber());
                 newOrder.put("address", address.getText());
                 newOrder.put("comments",notes.getText());
                 newOrder.put("quantity",(int)itemCount.getValue());
+                newOrder.put("category",NewOrderInfo.getCategory());
                 JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
                 UI.InfoMsg("Order successfully placed", "Success");
-                order.setOrderId(obj.getString("objectId"));
                 this.dispose();
             }
             else{
-                UI.ErrMsg("Please specify an address", "NO ADDRESS");
+                UI.ErrMsg("Address must be specified and order must be of alteast 1 item", "ERROR");
             }
-            //JSONObject newOrder = order.newOrder();
-            //if(address!=null) {  
-            //newOrder.put("secondaryPhoneNumber", secondaryPhoneNumber.getText());
-            //newOrder.put("address", address.getText());
-            //newOrder.put("Notes",notes.getText());
-            //newOrder.put("NoOfItems",(int)itemCount.getValue());
-            //newOrder.put("totalPrice",Integer.valueOf(price)*(int)itemCount.getValue());
-            //JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
-            //UI.InfoMsg("Order successfully placed", "Success");
-            this.dispose();
-            //}
-            //else{
-            //    UI.ErrMsg("Please specify an address", "NO ADDRESS");
-            //}
-        }
-            catch (Exception e){
-                    UI.ErrMsg("Unable to place order", "Order Placement Error");
-                    }
-       
-        
     }//GEN-LAST:event_jButton2ActionPerformed
-
+           catch(Exception e){
+               UI.ErrMsg("Unable to place Order","Error");
+           }
+    }
+    
     private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseExited
