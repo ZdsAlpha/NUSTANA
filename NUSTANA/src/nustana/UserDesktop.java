@@ -21,20 +21,21 @@ import tools.UI;
  * @author saifu
  */
 public class UserDesktop extends javax.swing.JFrame {
-        String profileId;
     /**
      * Creates new form UserDesktop
      */
-    public UserDesktop(String s) {
+    public UserDesktop() {
         initComponents();
-        profileId=s;
+        NewOrderInfo.setProfileId(Profile.getProfileId());
+        NewOrderInfo.setPhoneNumber(Profile.getPhoneNumber());
                       try{
+            
             JSONArray array = NUSTANA.getClient().GetObjects("Shops");
             DefaultTableModel model = (DefaultTableModel)table.getModel();
             model.setRowCount(0);
             for(int i = 0;i<array.length();i++){
                 JSONObject obj = array.getJSONObject(i);
-               model.addRow(new Object[] {obj.getString("name"),obj.getString("description"),obj.get("objectId")});
+               model.addRow(new Object[] {obj.getString("name"),obj.getString("description")});
                
                
             }
@@ -114,14 +115,14 @@ public class UserDesktop extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Description", "Shop ID"
+                "Name", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -229,12 +230,23 @@ public class UserDesktop extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4MouseExited
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         int[] rows = table.getSelectedRows();
-        DefaultTableModel model = (DefaultTableModel)table.getModel();
-        for(int index : rows){
-            MenuWindow mw = new MenuWindow(String.valueOf(table.getValueAt(index, 2)));
-            mw.setVisible(true);
-        } 
+                    int i= table.getSelectedRow();
+                    
+                    DefaultTableModel model = (DefaultTableModel)table.getModel();
+                    JSONArray array;
+        try {
+                    array = NUSTANA.getClient().GetObjects("Shops","name='" + String.valueOf(model.getValueAt(i, 0))+ "'");
+                    JSONObject obj = array.getJSONObject(0);
+                    NewOrderInfo.setShopId(obj.getString("objectId"));
+                    MenuWindow mw = new MenuWindow();
+                    UI.ShowDilague(this, mw);
+        } catch (IOException ex) {
+            Logger.getLogger(UserDesktop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BackendlessException ex) {
+            Logger.getLogger(UserDesktop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
@@ -244,7 +256,7 @@ public class UserDesktop extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         ProfileInfo p;
             try {
-                  p = ProfileInfo.Fetch(profileId);
+                  p = ProfileInfo.Fetch(Profile.getProfileId());
                   ProfileInfoBox pf = new ProfileInfoBox(p);
                   UI.ShowDilague(this, pf);
             } catch (IOException ex) {
@@ -293,7 +305,7 @@ public class UserDesktop extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserDesktop("").setVisible(true);
+                new UserDesktop().setVisible(true);
             }
         });
     }
