@@ -49,7 +49,7 @@ public class NUSTANA {
             client = new BackendlessClient(ApplicationId, SecretKey);
             new Login().setVisible(true);
         }
-        (new ProfileInfoBox("8A1183F7-EE0A-DE9F-FF82-8352D8F61000")).setVisible(true);
+        //(new ProfileInfoBox("8A1183F7-EE0A-DE9F-FF82-8352D8F61000")).setVisible(true);
     }
     //Initialize logger
     private static void initializeLogger(){
