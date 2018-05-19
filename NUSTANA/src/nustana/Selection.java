@@ -231,7 +231,7 @@ public class Selection extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        UserDesktop ud=new UserDesktop(Profile.getProfileId());
+        UserDesktop ud=new UserDesktop();
         UI.ShowDilague(this, ud);
     }//GEN-LAST:event_jLabel1MouseClicked
 
