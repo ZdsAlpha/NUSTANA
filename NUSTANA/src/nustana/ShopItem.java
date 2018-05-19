@@ -22,6 +22,7 @@ public class ShopItem {
     private String shopId;
     private String name;
     private int price;
+    private String category;
     private String description;
     public ShopItem(String itemId){
         this.itemId = itemId;
@@ -43,6 +44,7 @@ public class ShopItem {
         shopId = obj.getString("shopId");
         name = obj.getString("name");
         price = obj.getInt("price");
+        category = obj.getString("category");
         description = obj.getString("description");
     }
     public String getItemId(){
@@ -59,6 +61,9 @@ public class ShopItem {
     }
     public int getPrice(){
         return price;
+    }
+    public String getCategory(){
+        return category;
     }
     public String getDescription(){
         return description;
@@ -78,6 +83,9 @@ public class ShopItem {
     public void setPrice(int price){
         this.price = price;
     }
+    public void setCategory(String category){
+        this.category = category;
+    }
     public void setDescription(String description){
         this.description = description;
     }
@@ -86,6 +94,7 @@ public class ShopItem {
         obj.put("shopId", shopId);
         obj.put("name", name);
         obj.put("price", price);
+        obj.put("category",category);
         obj.put("description",description);
         NUSTANA.getClient().UpdateObject(TABLE, obj, itemId);
     }
@@ -96,11 +105,24 @@ public class ShopItem {
         itemId = obj.getString("itemId");
         name = obj.getString("name");
         price = obj.getInt("price");
+        category = obj.getString("category");
         description = obj.getString("description");
     }
     @Override
     public String toString() {
         return name;
+    }
+    public static ShopItem Create(String shopId,String name,int price,String category,String description) throws IOException , BackendlessException{
+        JSONObject obj = new JSONObject();
+        obj.put("shopId", shopId);
+        obj.put("name",name);
+        obj.put("price",price);
+        obj.put("category",category);
+        obj.put("description",description);
+        return new ShopItem(NUSTANA.getClient().CreateObject(TABLE, obj));
+    }
+    public static ShopItem Fetch(String itemId) throws IOException,BackendlessException{
+        return new ShopItem(NUSTANA.getClient().GetObject(TABLE, itemId));
     }
     private static ShopItem[] ProcessItems(JSONArray objects){
         ShopItem[] items = new ShopItem[objects.length()];
@@ -116,6 +138,10 @@ public class ShopItem {
     }
     public static ShopItem[] GetItems(String shopId) throws IOException , BackendlessException{
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "shopId='" + shopId + "'");
+        return ProcessItems(objects);
+    }
+    public static ShopItem[] GetItems(String shopId,String category) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE,"shopId='" + shopId + "' and category='" + category + "'");
         return ProcessItems(objects);
     }
 }

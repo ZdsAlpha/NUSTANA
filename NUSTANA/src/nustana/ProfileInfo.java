@@ -85,6 +85,18 @@ public class ProfileInfo {
     public String toString() {
         return name;
     }
+    public ProfileInfo Register(String email,String name,String phoneNumber,String password) throws IOException , BackendlessException{
+        JSONObject properties = new JSONObject();
+        properties.put("name", name);
+        properties.put("phoneNumber",phoneNumber);
+        return new ProfileInfo(NUSTANA.getClient().Register(email, password, properties));
+    }
+    public static ProfileInfo Login(String email,String password) throws IOException , BackendlessException{
+        return new ProfileInfo(NUSTANA.getClient().Login(email, password));
+    }
+    public static ProfileInfo Fetch(String profileId) throws IOException , BackendlessException{
+        return new ProfileInfo(NUSTANA.getClient().GetObject(TABLE, profileId));
+    }
     private static ProfileInfo[] ProcessProfiles(JSONArray objects){
         ProfileInfo[] profiles = new ProfileInfo[objects.length()];
         for(int i = 0; i < objects.length();i++){

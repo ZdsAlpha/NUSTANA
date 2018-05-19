@@ -268,6 +268,20 @@ public class OrderWindow extends javax.swing.JFrame {
             else{
                 UI.ErrMsg("Please specify an address", "NO ADDRESS");
             }
+            //JSONObject newOrder = order.newOrder();
+            //if(address!=null) {  
+            //newOrder.put("secondaryPhoneNumber", secondaryPhoneNumber.getText());
+            //newOrder.put("address", address.getText());
+            //newOrder.put("Notes",notes.getText());
+            //newOrder.put("NoOfItems",(int)itemCount.getValue());
+            //newOrder.put("totalPrice",Integer.valueOf(price)*(int)itemCount.getValue());
+            //JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
+            //UI.InfoMsg("Order successfully placed", "Success");
+            this.dispose();
+            //}
+            //else{
+            //    UI.ErrMsg("Please specify an address", "NO ADDRESS");
+            //}
         }
             catch (Exception e){
                     UI.ErrMsg("Unable to place order", "Order Placement Error");
