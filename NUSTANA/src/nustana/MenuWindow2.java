@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import tools.UI;
 
 /**
  *
@@ -23,18 +24,15 @@ public class MenuWindow2 extends javax.swing.JFrame {
     public MenuWindow2(String s) {
         initComponents();
         categoryLabel.setText(s);
-        category=s;
-                      try{
-            JSONArray array = NUSTANA.getClient().GetObjects("Items");
+        NewOrderInfo.setCategory(s);
+                     try{
+            ShopItem[] array = ShopItem.GetItems(NewOrderInfo.getShopId(), s);
             DefaultTableModel model = (DefaultTableModel)table1.getModel();
             model.setRowCount(0);
-            for(int i = 0;i<array.length();i++){
-                JSONObject obj = array.getJSONObject(i);
-                if (obj.getString("category").equals(s)){
-               model.addRow(new Object[] {obj.getString("name"),obj.getInt("price"),obj.getString("description")});
-                }
-            }
-        }catch(Exception ex){
+            for(int i = 0;  i<array.length  ;i++){
+               model.addRow(new Object[] {array[i].getName(), array[i].getPrice() ,array[i].getDescription()});
+            } 
+            }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Unable to refresh.\n"+ex.toString(), "Error!", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -90,7 +88,7 @@ public class MenuWindow2 extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -209,7 +207,13 @@ public class MenuWindow2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3MouseExited
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       // OrderWindow ow = new OrderWindow();
+        int[] rows = table1.getSelectedRows();
+        DefaultTableModel model = (DefaultTableModel)table1.getModel();
+        for(int index : rows){
+            OrderWindow ow = new OrderWindow(String.valueOf(model.getValueAt(index, 0)), String.valueOf(model.getValueAt(index, 1)));
+            ow.setVisible(true);
+        } 
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
