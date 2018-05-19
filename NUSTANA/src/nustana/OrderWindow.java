@@ -17,21 +17,21 @@ import tools.UI;
 public class OrderWindow extends javax.swing.JFrame {
     private Order order;
     private int price;
-
-    /**
-     * Creates new form OrderWindow
-     * @param table
-     * @param client
-     * @param item_Name
-     */      
+   
        public OrderWindow(Order o) {
-        initComponents();
+         initComponents();
         order=o;
         this.totalPrice.setText("Total= Rs.");
-        this.itemName.setText(order.getItemName());
-        this.priceDisplay.setText("Price= Rs."+order.getItemPrice());
-        price=Integer.valueOf(order.getItemPrice());
+        try{
+            JSONObject obj =NUSTANA.getClient().GetObject("Items", order.getItemId());
+            this.itemName.setText(NUSTANA.getClient().GetObject("Items", order.getItemId()).getString("name"));
+            this.priceDisplay.setText("Price= Rs."+obj.getInt("price"));
+            price=Integer.valueOf(obj.getInt("price"));
     }
+        catch(Exception e){
+            UI.ErrMsg("Error loading window", "Window loading error");
+        }
+       }
        
  
  
@@ -48,8 +48,6 @@ public class OrderWindow extends javax.swing.JFrame {
         itemCount = new javax.swing.JSpinner();
         address = new javax.swing.JTextField();
         notes = new javax.swing.JTextField();
-        secondaryPhoneNumber = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         totalPrice = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -62,6 +60,7 @@ public class OrderWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setForeground(java.awt.Color.lightGray);
 
         itemCount.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         itemCount.setModel(new javax.swing.SpinnerNumberModel());
@@ -101,18 +100,6 @@ public class OrderWindow extends javax.swing.JFrame {
                 notesActionPerformed(evt);
             }
         });
-
-        secondaryPhoneNumber.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        secondaryPhoneNumber.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        secondaryPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                secondaryPhoneNumberActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(84, 127, 206));
-        jLabel5.setText("Secondary Phone Number (optional)");
 
         totalPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         totalPrice.setText("Total=");
@@ -192,8 +179,6 @@ public class OrderWindow extends javax.swing.JFrame {
                                     .addComponent(totalPrice))
                                 .addComponent(notes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(secondaryPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(address, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,15 +207,11 @@ public class OrderWindow extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(secondaryPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel7)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(notes, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -264,26 +245,25 @@ public class OrderWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_notesActionPerformed
 
-    private void secondaryPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondaryPhoneNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_secondaryPhoneNumberActionPerformed
-
     private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2MouseExited
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
-            JSONObject newOrder = order.newOrder();
-            if(address!=null) {  
-            newOrder.put("secondaryPhoneNumber", secondaryPhoneNumber.getText());
-            newOrder.put("address", address.getText());
-            newOrder.put("Notes",notes.getText());
-            newOrder.put("NoOfItems",(int)itemCount.getValue());
-            newOrder.put("totalPrice",Integer.valueOf(price)*(int)itemCount.getValue());
-            JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
-            UI.InfoMsg("Order successfully placed", "Success");
-            this.dispose();
+            JSONObject newOrder = new JSONObject();
+            if(address!=null) {
+                newOrder.put("status",order.getStatus());
+                newOrder.put("shopID",order.getShopId());
+                newOrder.put("phoneNumber",Profile.getPhoneNumber());
+                newOrder.put("itemID", order.getItemId());
+                newOrder.put("address", address.getText());
+                newOrder.put("comments",notes.getText());
+                newOrder.put("quantity",(int)itemCount.getValue());
+                JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
+                UI.InfoMsg("Order successfully placed", "Success");
+                order.setOrderId(obj.getString("objectId"));
+                this.dispose();
             }
             else{
                 UI.ErrMsg("Please specify an address", "NO ADDRESS");
@@ -292,6 +272,7 @@ public class OrderWindow extends javax.swing.JFrame {
             catch (Exception e){
                     UI.ErrMsg("Unable to place order", "Order Placement Error");
                     }
+       
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -316,12 +297,10 @@ public class OrderWindow extends javax.swing.JFrame {
     private javax.swing.JLabel itemName;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField notes;
     private javax.swing.JLabel priceDisplay;
-    private javax.swing.JTextField secondaryPhoneNumber;
     private javax.swing.JLabel totalPrice;
     // End of variables declaration//GEN-END:variables
 }
