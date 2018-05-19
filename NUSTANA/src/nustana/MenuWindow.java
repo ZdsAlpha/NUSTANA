@@ -9,6 +9,8 @@ import backendless.BackendlessException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import tools.UI;
 
 /**
@@ -16,15 +18,13 @@ import tools.UI;
  * @author saifu
  */
 public class MenuWindow extends javax.swing.JFrame {
-String shopId;
     /**
      * Creates new form MenuWindow
      */
-    public MenuWindow(String s) {
+    public MenuWindow() {
         initComponents();
-        shopId=s;
     try {
-        shopName.setText(NUSTANA.getClient().GetObject("Shops", shopId).getString("name"));
+        shopName.setText(NUSTANA.getClient().GetObject("Shops", NewOrderInfo.getShopId()).getString("name"));
     } catch (IOException ex) {
         Logger.getLogger(MenuWindow.class.getName()).log(Level.SEVERE, null, ex);
     } catch (BackendlessException ex) {
@@ -289,7 +289,7 @@ String shopId;
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
     try {
-        ShopInfo s = ShopInfo.Fetch(shopId);
+        ShopInfo s = ShopInfo.Fetch(NewOrderInfo.getShopId());
         ShopInfoBox sib = new ShopInfoBox(s);
         UI.ShowDilague(this, sib);
     } catch (IOException ex) {
@@ -330,7 +330,7 @@ String shopId;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuWindow("").setVisible(true);
+                new MenuWindow().setVisible(true);
             }
         });
     }
