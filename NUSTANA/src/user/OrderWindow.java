@@ -350,7 +350,7 @@ public class OrderWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberActionPerformed
-        price.setText((ITEM.getPrice()*(int)quantity.getValue())+"");
+        
     }//GEN-LAST:event_phoneNumberActionPerformed
 
     private void phoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeyTyped
@@ -359,7 +359,7 @@ public class OrderWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneNumberKeyTyped
 
     private void quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_quantityStateChanged
-        
+        price.setText((ITEM.getPrice()*(int)quantity.getValue())+"");
     }//GEN-LAST:event_quantityStateChanged
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

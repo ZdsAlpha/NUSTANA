@@ -170,7 +170,7 @@ public class Order {
         return ProcessOrders(objects);
     }
     public static Order[] GetOrders(String profileId) throws IOException , BackendlessException{
-        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "profileId='" + profileId + "'");
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "ownerId='" + profileId + "'");
         return ProcessOrders(objects);
     }
     public static Order[] GetOrdersByShop(String shopId) throws IOException , BackendlessException{

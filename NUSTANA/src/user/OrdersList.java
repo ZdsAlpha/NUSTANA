@@ -5,6 +5,13 @@
  */
 package user;
 
+import backendless.BackendlessException;
+import java.io.IOException;
+import javax.swing.table.DefaultTableModel;
+import nustana.Order;
+import nustana.Profile;
+import nustana.ShopInfo;
+import nustana.ShopItem;
 import tools.ExceptionHandling;
 import tools.UI;
 
@@ -17,10 +24,43 @@ public class OrdersList extends javax.swing.JFrame {
     /**
      * Creates new form OrdersList
      */
-    public OrdersList() {
+    public OrdersList() throws IOException , BackendlessException {
         initComponents();
+        this.Refresh();
     }
-
+    public Order[] getOrders() throws IOException , BackendlessException{
+        return Order.GetOrders(Profile.getProfileId());
+    }
+    public ShopItem[] getItems(Order[] orders) throws IOException , BackendlessException{
+        ShopItem[] items = new ShopItem[orders.length];
+        for(int i = 0; i < orders.length ; i++){
+            items[i] = ShopItem.Fetch(orders[i].getItemId());
+        }
+        return items;
+    }
+    public ShopInfo[] getShops(Order[] orders) throws IOException , BackendlessException{
+        ShopInfo[] shops = new ShopInfo[orders.length];
+        for(int i = 0; i < orders.length;i++){
+            shops[i] = ShopInfo.Fetch(orders[i].getShopId());
+        }
+        return shops;
+    }
+    public void Refresh(ShopInfo[] shops,ShopItem[] items,Order[] orders){
+        DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
+        model.setNumRows(0);
+        for(int i = 0;i < shops.length-1;i++){
+            ShopInfo shop = shops[i];
+            ShopItem item = items[i];
+            Order order = orders[i];
+            model.addRow(new Object[] {shop,item,order,item.getPrice(),order.getQuantity(),item.getPrice()*order.getQuantity(),order.getStatus(),order.getPhoneNumber(),order.getAddress(),order.getComments()});
+        }
+    }
+    public void Refresh() throws IOException , BackendlessException{
+        Order[] orders = getOrders();
+        ShopItem[] items = getItems(orders);
+        ShopInfo[] shops = getShops(orders);
+        Refresh(shops,items,orders);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +80,7 @@ public class OrdersList extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Orders History");
@@ -181,6 +222,22 @@ public class OrdersList extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setBackground(new java.awt.Color(84, 127, 206));
+        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Refresh");
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton7MouseExited(evt);
+            }
+        });
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -194,6 +251,8 @@ public class OrdersList extends javax.swing.JFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -214,7 +273,8 @@ public class OrdersList extends javax.swing.JFrame {
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -277,6 +337,18 @@ public class OrdersList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7MouseExited
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        try{
+            this.Refresh();
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to refresh list!");
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
@@ -284,6 +356,7 @@ public class OrdersList extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
