@@ -89,6 +89,12 @@ public class ShopItem {
     public void setDescription(String description){
         this.description = description;
     }
+    public ShopInfo getShopInfo() throws IOException , BackendlessException{
+        return ShopInfo.Fetch(shopId);
+    }
+    public ProfileInfo getProfileInfo() throws IOException , BackendlessException{
+        return ProfileInfo.Fetch(profileId);
+    }
     public void Save() throws IOException, BackendlessException{
         JSONObject obj = new JSONObject();
         obj.put("shopId", shopId);

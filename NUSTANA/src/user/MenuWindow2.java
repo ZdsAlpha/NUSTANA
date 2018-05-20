@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nustana;
+package user;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import nustana.ShopItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import tools.UI;

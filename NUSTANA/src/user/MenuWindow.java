@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nustana;
+package user;
 
 import backendless.BackendlessException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nustana.NUSTANA;
+import nustana.ShopInfo;
+import nustana.ShopInfoBox;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import tools.UI;
@@ -193,9 +196,9 @@ public class MenuWindow extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(131, 131, 131))
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1379, 1379, 1379)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))

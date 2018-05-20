@@ -17,14 +17,9 @@ import tools.UI;
  */
 public class Profile {
     public static final String CONFIGURATION_FILE_PATH = "profileConfig.json";
-    private static boolean isLoggedin = false;
-    private static String profileId;
-    private static String name;
-    private static String email;
-    private static String phoneNumber;
-    private static String userStatus;
-    private static String password;
-    public static JSONObject Register(String name,String email,String phoneNumber,String password) throws IOException , BackendlessException{
+    private static ProfileInfo profile;
+    public static ProfileInfo Register(String name,String email,String phoneNumber,String password) throws IOException , BackendlessException{
+        ProfileInfo.Register()
         JSONObject properties = new JSONObject();
         properties.put("name", name);
         properties.put("phoneNumber",phoneNumber);

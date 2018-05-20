@@ -5,6 +5,7 @@
  */
 package nustana;
 
+import user.UserDesktop;
 import org.json.JSONArray;
 import shop.ShopPanel;
 import shop.ShopRegistration;

@@ -14,11 +14,13 @@ import tools.UI;
  */
 public class ShopInfoBox extends javax.swing.JFrame {
     public final ShopInfo SHOP;
+    public final ProfileInfo PROFILE;
     /**
      * Creates new form ProfileInfoBox
      */
-    public ShopInfoBox(ShopInfo shop) {
+    public ShopInfoBox(ProfileInfo profile,ShopInfo shop) {
         this.SHOP = shop;
+        this.PROFILE = profile;
         initComponents();
         this.setTitle(SHOP.getName());
         this.shopId.setText(SHOP.getShopId());
@@ -27,10 +29,6 @@ public class ShopInfoBox extends javax.swing.JFrame {
         this.address.setText(SHOP.getAddress());
         this.description.setText(SHOP.getDescription());
     }
-    public ShopInfoBox(String shopId){
-        this(new ShopInfo(shopId));
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,7 +117,7 @@ public class ShopInfoBox extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(84, 127, 206));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("View Profile");
+        jButton2.setText("View Owner's Profile");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +140,7 @@ public class ShopInfoBox extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(12, 12, 12))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -154,12 +152,12 @@ public class ShopInfoBox extends javax.swing.JFrame {
                                     .addComponent(jLabel7))
                                 .addGap(96, 96, 96)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(phoneNumber)
-                                    .addComponent(shopId)
-                                    .addComponent(name)))
+                                    .addComponent(shopId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel8)
                             .addComponent(jLabel13))
-                        .addContainerGap(315, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,11 +209,7 @@ public class ShopInfoBox extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{
-            (new ProfileInfoBox(SHOP.getProfileId())).setVisible(true);
-        }catch(Exception ex){
-            ExceptionHandling.ShowException(ex, "Unable to show profile info!");
-        }
+        (new ProfileInfoBox(PROFILE)).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -20,7 +20,7 @@ public class ProfileInfo {
     private String email;
     private String name;
     private String phoneNumber;
-    private String userStatus;
+    private String profileStatus;
     public ProfileInfo(String profileId){
         this.profileId = profileId;
     }
@@ -35,7 +35,7 @@ public class ProfileInfo {
         email = obj.getString("email");
         name = obj.getString("name");
         phoneNumber = obj.getString("phoneNumber");
-        userStatus = obj.getString("userStatus");
+        profileStatus = obj.getString("userStatus");
     }
     public String getProfileId(){
         return profileId;
@@ -49,8 +49,8 @@ public class ProfileInfo {
     public String getPhoneNumber(){
         return phoneNumber;
     }
-    public String getUserStatus(){
-        return userStatus;
+    public String getProfileStatus(){
+        return profileStatus;
     }
     public void setProfileId(String id){
         this.profileId = id;
@@ -64,8 +64,11 @@ public class ProfileInfo {
     public void setPhoneNumber(String phoneNumber){
         this.phoneNumber = phoneNumber;
     }
-    public void setUserStatus(String status){
-        this.userStatus = status;
+    public void setProfileStatus(String status){
+        this.profileStatus = status;
+    }
+    public ShopInfo[] getShops() throws IOException , BackendlessException{
+        return ShopInfo.GetShops(profileId);
     }
     public void Save() throws IOException, BackendlessException{
         JSONObject obj = new JSONObject();
@@ -79,13 +82,13 @@ public class ProfileInfo {
         email = obj.getString("email");
         name = obj.getString("name");
         phoneNumber = obj.getString("phoneNumber");
-        userStatus = obj.getString("userStatus");
+        profileStatus = obj.getString("userStatus");
     }
     @Override
     public String toString() {
         return name;
     }
-    public ProfileInfo Register(String email,String name,String phoneNumber,String password) throws IOException , BackendlessException{
+    public static ProfileInfo Register(String email,String name,String phoneNumber,String password) throws IOException , BackendlessException{
         JSONObject properties = new JSONObject();
         properties.put("name", name);
         properties.put("phoneNumber",phoneNumber);

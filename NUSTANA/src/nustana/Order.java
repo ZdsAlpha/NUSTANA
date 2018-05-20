@@ -104,6 +104,15 @@ public class Order {
     public void setComments(String comments){
         this.comments = comments;
     }
+    public ShopItem getShopItem() throws IOException , BackendlessException{
+        return ShopItem.Fetch(itemId);
+    }
+    public ShopInfo getShopInfo() throws IOException , BackendlessException{
+        return ShopInfo.Fetch(shopId);
+    }
+    public ProfileInfo getProfileInfo() throws IOException , BackendlessException{
+        return ProfileInfo.Fetch(profileId);
+    }
     public void Save() throws IOException, BackendlessException{
         JSONObject obj = new JSONObject();
         obj.put("shopId", shopId);

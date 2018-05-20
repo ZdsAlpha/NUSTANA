@@ -27,7 +27,7 @@ public class ProfileInfoBox extends javax.swing.JFrame {
         this.email.setText(profile.getEmail());
         this.name.setText(profile.getName());
         this.phoneNumber.setText(profile.getPhoneNumber());
-        this.userStatus.setText(profile.getUserStatus());
+        this.userStatus.setText(profile.getProfileStatus());
     }
     public ProfileInfoBox(String profileId) throws IOException,BackendlessException{
         this(ProfileInfo.Fetch(profileId));
@@ -89,7 +89,7 @@ public class ProfileInfoBox extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(84, 127, 206));
-        jLabel9.setText("User Status:");
+        jLabel9.setText("Profile Status:");
 
         profileId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         profileId.setForeground(new java.awt.Color(84, 127, 206));
@@ -146,13 +146,13 @@ public class ProfileInfoBox extends javax.swing.JFrame {
                         .addGap(115, 115, 115)
                         .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(73, 73, 73)
-                        .addComponent(userStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
                         .addGap(42, 42, 42)
-                        .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(userStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -210,7 +210,7 @@ public class ProfileInfoBox extends javax.swing.JFrame {
             if(shops.length==0){
                 UI.InfoMsg(PROFILE.getName() + " has no shop registered.", "Shop Info");
             }else{
-                (new ShopInfoBox(shops[0])).setVisible(true);
+                (new ShopInfoBox(PROFILE,shops[0])).setVisible(true);
             }
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to show profile info!");

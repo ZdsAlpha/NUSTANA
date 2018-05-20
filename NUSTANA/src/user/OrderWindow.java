@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nustana;
+package user;
 import backendless.BackendlessClient;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import nustana.NUSTANA;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import tools.UI;
