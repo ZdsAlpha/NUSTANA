@@ -19,6 +19,7 @@ import tools.UI;
 public class OrderWindow extends javax.swing.JFrame {
     private String price;
        public OrderWindow(String itemName , String price ) {
+           /*
         try{
         JSONArray array = NUSTANA.getClient().GetObjects("Items","shopId='" + NewOrderInfo.getShopId() + "' and name='" + itemName + "'");
         JSONObject obj = array.getJSONObject(0);
@@ -32,6 +33,7 @@ public class OrderWindow extends javax.swing.JFrame {
         catch(Exception e){
             UI.ErrMsg("Error loading window", "Window loading error");
         }
+           */
        }
        
  
@@ -251,6 +253,7 @@ public class OrderWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseExited
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    /*
         try{
             JSONObject newOrder = new JSONObject();
             if( !(address.getText().equals("")) && (int)itemCount.getValue()!=0) {
@@ -274,6 +277,7 @@ public class OrderWindow extends javax.swing.JFrame {
            catch(Exception e){
                UI.ErrMsg("Unable to place Order","Error");
            }
+        */
     }
     
     private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
