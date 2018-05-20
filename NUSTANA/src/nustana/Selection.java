@@ -223,7 +223,7 @@ public class Selection extends javax.swing.JFrame {
         try{
             shop.Shop.Login();
             UI.ShowDilague(this, new ShopPanel());
-        }catch(ArrayIndexOutOfBoundsException ex){
+        }catch(IndexOutOfBoundsException ex){
             UI.InfoMsg("You don't have any shop registered! Please register your shop.", "Shop registration!");
             UI.ShowDilague(this, new ShopRegistration());
         }catch(Exception ex){

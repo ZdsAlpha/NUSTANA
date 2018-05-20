@@ -95,6 +95,9 @@ public class ShopItem {
     public ProfileInfo getProfileInfo() throws IOException , BackendlessException{
         return ProfileInfo.Fetch(profileId);
     }
+    public Order[] getOrders() throws IOException , BackendlessException{
+        return Order.GetOrdersByItem(itemId);
+    }
     public void Save() throws IOException, BackendlessException{
         JSONObject obj = new JSONObject();
         obj.put("shopId", shopId);
@@ -113,6 +116,9 @@ public class ShopItem {
         price = obj.getInt("price");
         category = obj.getString("category");
         description = obj.getString("description");
+    }
+    public void Delete() throws IOException, BackendlessException{
+        NUSTANA.getClient().DeleteObject(TABLE, itemId);
     }
     @Override
     public String toString() {

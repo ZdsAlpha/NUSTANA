@@ -56,9 +56,7 @@ public class OrderBox extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        address = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        comments = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -69,6 +67,10 @@ public class OrderBox extends javax.swing.JFrame {
         status = new javax.swing.JLabel();
         phoneNumber = new javax.swing.JLabel();
         orderId = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        address = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        comments = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -118,23 +120,9 @@ public class OrderBox extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(84, 127, 206));
         jLabel13.setText("Recipient's Address:");
 
-        address.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        address.setForeground(new java.awt.Color(84, 127, 206));
-        address.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        address.setText("XXXXXXXXXX");
-        address.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        address.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(84, 127, 206));
         jLabel14.setText("Comments:");
-
-        comments.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        comments.setForeground(new java.awt.Color(84, 127, 206));
-        comments.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        comments.setText("XXXXXXXXXX");
-        comments.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        comments.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jButton2.setBackground(new java.awt.Color(84, 127, 206));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -197,6 +185,20 @@ public class OrderBox extends javax.swing.JFrame {
         orderId.setForeground(new java.awt.Color(84, 127, 206));
         orderId.setText("XXXXXXXXXX");
 
+        address.setEditable(false);
+        address.setColumns(20);
+        address.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        address.setForeground(new java.awt.Color(84, 127, 206));
+        address.setRows(5);
+        jScrollPane1.setViewportView(address);
+
+        comments.setEditable(false);
+        comments.setColumns(20);
+        comments.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        comments.setForeground(new java.awt.Color(84, 127, 206));
+        comments.setRows(5);
+        jScrollPane2.setViewportView(comments);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -204,6 +206,8 @@ public class OrderBox extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,8 +216,6 @@ public class OrderBox extends javax.swing.JFrame {
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
                         .addComponent(jButton1))
-                    .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(113, 113, 113)
@@ -280,12 +282,12 @@ public class OrderBox extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
-                .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
-                .addComponent(comments, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                .addGap(6, 6, 6)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -330,8 +332,8 @@ public class OrderBox extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel address;
-    private javax.swing.JLabel comments;
+    private javax.swing.JTextArea address;
+    private javax.swing.JTextArea comments;
     private javax.swing.JLabel itemName;
     private javax.swing.JLabel itemPrice;
     private javax.swing.JButton jButton1;
@@ -348,6 +350,8 @@ public class OrderBox extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel orderId;
     private javax.swing.JLabel phoneNumber;
     private javax.swing.JLabel quantity;

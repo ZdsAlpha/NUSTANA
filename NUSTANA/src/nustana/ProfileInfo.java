@@ -84,6 +84,9 @@ public class ProfileInfo {
         phoneNumber = obj.getString("phoneNumber");
         profileStatus = obj.getString("userStatus");
     }
+    public void Delete() throws IOException, BackendlessException{
+        NUSTANA.getClient().DeleteObject(TABLE, profileId);
+    }
     @Override
     public String toString() {
         return name;

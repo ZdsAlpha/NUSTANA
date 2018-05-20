@@ -3,33 +3,42 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nustana;
+package shop;
 
+import nustana.*;
+import tools.ExceptionHandling;
 import tools.UI;
 
 /**
  *
  * @author Abdul Rahman
  */
-public class ShopItemBox extends javax.swing.JFrame {
-    public final ProfileInfo PROFILE;
-    public final ShopInfo SHOP;
-    public final ShopItem ITEM;
+public class ShopItemEditor extends javax.swing.JFrame {
+    private ShopPanel panel;
+    private ShopItem item;
     /**
      * Creates new form ProfileInfoBox
      */
-    public ShopItemBox(ProfileInfo profile,ShopInfo shop,ShopItem item) {
-        this.PROFILE = profile;
-        this.SHOP = shop;
-        this.ITEM = item;
+    public ShopItemEditor(ShopPanel panel,ShopItem item) {
+        this.panel = panel;
+        this.item = item;
         initComponents();
-        this.setTitle(item.getName());
-        this.itemId.setText(item.getName());
-        this.shopName.setText(shop.getName());
-        this.itemName.setText(item.getName());
-        this.itemPrice.setText(item.getPrice()+"");
-        this.category.setText(item.getCategory());
-        this.description.setText(item.getDescription());
+        if(item==null){
+            this.setTitle("New Item");
+            this.itemId.setText("None");
+            this.shopName.setText(Shop.getName());
+            this.itemName.setText("New Item");
+            this.actionButton.setText("Create");
+        }else{
+            this.setTitle(item.getName());
+            this.itemId.setText(item.getName());
+            this.shopName.setText(Shop.getName());
+            this.itemName.setText(item.getName());
+            this.itemPrice.setValue(item.getPrice());
+            this.category.setSelectedItem(item.getCategory());
+            this.itemDescription.setText(item.getDescription());   
+            this.actionButton.setText("Update");
+        }
     }
 
     /**
@@ -51,12 +60,12 @@ public class ShopItemBox extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         itemId = new javax.swing.JLabel();
         shopName = new javax.swing.JLabel();
-        itemName = new javax.swing.JLabel();
-        itemPrice = new javax.swing.JLabel();
-        category = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        itemName = new javax.swing.JTextField();
+        category = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        description = new javax.swing.JTextArea();
+        itemDescription = new javax.swing.JTextArea();
+        actionButton = new javax.swing.JButton();
+        itemPrice = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -106,35 +115,36 @@ public class ShopItemBox extends javax.swing.JFrame {
         shopName.setForeground(new java.awt.Color(84, 127, 206));
         shopName.setText("XXXXXXXXXX");
 
-        itemName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemName.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         itemName.setForeground(new java.awt.Color(84, 127, 206));
-        itemName.setText("XXXXXXXXXX");
-
-        itemPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        itemPrice.setForeground(new java.awt.Color(84, 127, 206));
-        itemPrice.setText("XXXXXXXXXX");
-
-        category.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        category.setForeground(new java.awt.Color(84, 127, 206));
-        category.setText("XXXXXXXXXX");
-
-        jButton2.setBackground(new java.awt.Color(84, 127, 206));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("View Shop");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        itemName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        itemName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                itemNameActionPerformed(evt);
             }
         });
 
-        description.setEditable(false);
-        description.setColumns(20);
-        description.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        description.setForeground(new java.awt.Color(84, 127, 206));
-        description.setRows(5);
-        jScrollPane1.setViewportView(description);
+        category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Others", "Burgers", "Pizza", "Desserts", "Beverages" }));
+
+        itemDescription.setColumns(20);
+        itemDescription.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        itemDescription.setForeground(new java.awt.Color(84, 127, 206));
+        itemDescription.setRows(5);
+        jScrollPane1.setViewportView(itemDescription);
+
+        actionButton.setBackground(new java.awt.Color(84, 127, 206));
+        actionButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        actionButton.setForeground(new java.awt.Color(255, 255, 255));
+        actionButton.setText("Action");
+        actionButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        actionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actionButtonActionPerformed(evt);
+            }
+        });
+
+        itemPrice.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        itemPrice.setModel(new javax.swing.SpinnerNumberModel(50, 0, null, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,33 +154,30 @@ public class ShopItemBox extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(86, 86, 86)
                         .addComponent(itemId, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(actionButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
                         .addGap(49, 49, 49)
-                        .addComponent(shopName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(55, 55, 55)
-                        .addComponent(itemName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(65, 65, 65)
-                        .addComponent(itemPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(71, 71, 71)
-                        .addComponent(category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(itemName)
+                            .addComponent(shopName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(category, 0, 208, Short.MAX_VALUE)
+                                    .addComponent(itemPrice))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,20 +198,20 @@ public class ShopItemBox extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(itemPrice))
+                    .addComponent(itemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(category))
+                    .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(actionButton)
+                    .addComponent(jButton1))
+                .addGap(7, 7, 7))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,7 +222,7 @@ public class ShopItemBox extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -226,22 +233,41 @@ public class ShopItemBox extends javax.swing.JFrame {
         UI.CloseFrame(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        (new ShopInfoBox(PROFILE,SHOP)).setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void itemNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemNameActionPerformed
+
+    private void actionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionButtonActionPerformed
+        try{
+            if(this.item==null){
+                ShopItem i = ShopItem.Create(Shop.getShopId(), itemName.getText(), (int)itemPrice.getValue(), (String)category.getSelectedItem(), itemDescription.getText());
+                panel.createShopItem(i);
+            }else{
+                item.setName(itemName.getText());
+                item.setPrice((int)itemPrice.getValue());
+                item.setCategory((String)category.getSelectedItem());
+                item.setDescription(itemDescription.getText());
+                item.Save();
+                panel.updateShopItems(new ShopItem[] {item});
+            }
+            UI.CloseFrame(this);
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to create/modify item.");
+        }
+    }//GEN-LAST:event_actionButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel category;
-    private javax.swing.JTextArea description;
+    private javax.swing.JButton actionButton;
+    private javax.swing.JComboBox<String> category;
+    private javax.swing.JTextArea itemDescription;
     private javax.swing.JLabel itemId;
-    private javax.swing.JLabel itemName;
-    private javax.swing.JLabel itemPrice;
+    private javax.swing.JTextField itemName;
+    private javax.swing.JSpinner itemPrice;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

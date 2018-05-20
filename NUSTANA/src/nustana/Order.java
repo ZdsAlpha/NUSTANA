@@ -136,6 +136,9 @@ public class Order {
         address = obj.getString("address");
         comments = obj.getString("comments");
     }
+    public void Delete() throws IOException, BackendlessException{
+        NUSTANA.getClient().DeleteObject(TABLE, orderId);
+    }
     @Override
     public String toString() {
         return orderId;
@@ -170,8 +173,20 @@ public class Order {
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "profileId='" + profileId + "'");
         return ProcessOrders(objects);
     }
-    public static Order[] GetShopOrders(String shopId) throws IOException , BackendlessException{
+    public static Order[] GetOrdersByShop(String shopId) throws IOException , BackendlessException{
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "shopId='" + shopId + "'");
+        return ProcessOrders(objects);
+    }
+    public static Order[] GetOrdersByShop(String shopId,String category) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "shopId='" + shopId + "' and category='"+category+"'");
+        return ProcessOrders(objects);
+    }
+    public static Order[] GetOrdersByCategory(String category) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "category='" + category + "'");
+        return ProcessOrders(objects);
+    }
+    public static Order[] GetOrdersByItem(String itemId) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "itemId='" + itemId + "'");
         return ProcessOrders(objects);
     }
 }

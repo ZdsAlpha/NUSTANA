@@ -103,6 +103,9 @@ public class ShopInfo {
         address = obj.getString("address");
         description = obj.getString("desccription");
     }
+    public void Delete() throws IOException, BackendlessException{
+        NUSTANA.getClient().DeleteObject(TABLE, shopId);
+    }
     @Override
     public String toString() {
         return name;
