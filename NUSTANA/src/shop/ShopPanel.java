@@ -5,6 +5,8 @@
  */
 package shop;
 
+import backendless.BackendlessException;
+import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import nustana.ShopItem;
 import tools.ExceptionHandling;
@@ -20,15 +22,65 @@ public class ShopPanel extends javax.swing.JFrame {
      */
     public ShopPanel() {
         initComponents();
-        shopItemsTable.setModel(new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 2 || column == 3;
-            }
-        });
         
     }
-
+    public ShopItem getShopItem(String itemId){
+        DefaultTableModel model = (DefaultTableModel)shopItemsTable.getModel();
+        int rows = model.getRowCount();
+        for(int i = 0; i < rows; i++){
+            ShopItem item = (ShopItem)model.getValueAt(i, 0);
+            if(item.getItemId().equals(itemId)){
+                return item;
+            }
+        }
+        return null;
+    }
+    public int getShopItemRow(String itemId){
+        DefaultTableModel model = (DefaultTableModel)shopItemsTable.getModel();
+        int rows = model.getRowCount();
+        int id = -1;
+        for(int i = 0; i < rows; i++){
+            if(((ShopItem)model.getValueAt(i, 0)).getItemId().equals(itemId)){
+                id = i;
+                break;
+            }
+        }
+        return id;
+    }
+    public boolean setShopItem(ShopItem item){
+        DefaultTableModel model = (DefaultTableModel)shopItemsTable.getModel();
+        int id = getShopItemRow(item.getItemId());
+        if(id != -1){
+            setShopItem(item);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public void setShopItem(ShopItem item,int row){
+        DefaultTableModel model = (DefaultTableModel)shopItemsTable.getModel();
+        model.setValueAt(item, row, 0);
+        model.setValueAt(item.getCategory(), row, 1);
+        model.setValueAt(item.getPrice(), row, 2);
+        model.setValueAt(item.getDescription(), row, 3);
+    }
+    public void createShopItem(ShopItem item){
+        DefaultTableModel model = (DefaultTableModel)shopItemsTable.getModel();
+        model.addRow(new Object[] {item,item.getCategory(),item.getPrice(),item.getDescription()});
+    }
+    public void updateShopItems(ShopItem[] items){
+        for(ShopItem item : items){
+            int row = getShopItemRow(item.getItemId());
+            if(row!=-1){
+                setShopItem(item, row);
+            }else{
+                createShopItem(item);
+            }
+        }
+    }
+    public void updateShopItems() throws IOException , BackendlessException{
+        updateShopItems(ShopItem.GetItems(Shop.getShopId()));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,6 +132,7 @@ public class ShopPanel extends javax.swing.JFrame {
 
         shopItemsTable.setAutoCreateRowSorter(true);
         shopItemsTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        shopItemsTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         shopItemsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -92,7 +145,7 @@ public class ShopPanel extends javax.swing.JFrame {
                 java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -104,6 +157,7 @@ public class ShopPanel extends javax.swing.JFrame {
             }
         });
         shopItemsTable.setGridColor(new java.awt.Color(255, 255, 255));
+        shopItemsTable.setSelectionBackground(new java.awt.Color(84, 127, 206));
         jScrollPane1.setViewportView(shopItemsTable);
 
         jButton1.setBackground(new java.awt.Color(84, 127, 206));
@@ -205,8 +259,7 @@ public class ShopPanel extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            ShopItem[] items = ShopItem.GetItems(Shop.getShopId());
-            
+            updateShopItems();
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to update shop items!");
         }
