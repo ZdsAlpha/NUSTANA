@@ -9,7 +9,9 @@ import backendless.BackendlessException;
 import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import nustana.Order;
+import nustana.OrderBox;
 import nustana.Profile;
+import nustana.ProfileInfo;
 import nustana.ShopInfo;
 import nustana.ShopItem;
 import tools.ExceptionHandling;
@@ -318,7 +320,29 @@ public class OrdersList extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4MouseExited
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        try{
+            int[] rows = ordersList.getSelectedRows();
+            DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
+            boolean updated = false;
+            for(int row : rows){
+                ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
+                ShopItem item = (ShopItem)model.getValueAt(row, 1);
+                Order order = (Order)model.getValueAt(row, 2);
+                if(order.getStatus().equals("Pending")){
+                    order.Delete();
+                    updated = true;
+                }else{
+                    UI.ErrMsg("Cannot cancel this order. Only pending orders can be canceled.", "Error!");
+                }
+            }
+            try{
+                if(updated) this.Refresh();
+            }catch(Exception ex){
+                ExceptionHandling.ShowException(ex, "Unable to refresh orders list!");
+            }
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to cancel order!");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
@@ -326,7 +350,29 @@ public class OrdersList extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5MouseExited
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        try{
+            int[] rows = ordersList.getSelectedRows();
+            DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
+            boolean updated = false;
+            for(int row : rows){
+                ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
+                ShopItem item = (ShopItem)model.getValueAt(row, 1);
+                Order order = (Order)model.getValueAt(row, 2);
+                if(order.getStatus().equals("Delivered")){
+                    order.Delete();
+                    updated = true;
+                }else{
+                    UI.ErrMsg("Cannot discard this order. Only delivered orders can be discarded.", "Error!");
+                }
+            }
+            try{
+                if(updated) this.Refresh();
+            }catch(Exception ex){
+                ExceptionHandling.ShowException(ex, "Unable to refresh orders list!");
+            }
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to discard order!");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseExited
@@ -334,7 +380,18 @@ public class OrdersList extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6MouseExited
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        try{
+            int[] rows = ordersList.getSelectedRows();
+            DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
+            for(int row : rows){
+                ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
+                ShopItem item = (ShopItem)model.getValueAt(row, 1);
+                Order order = (Order)model.getValueAt(row, 2);
+                (new OrderBox(ProfileInfo.Fetch(shop.getProfileId()), shop, item, order)).setVisible(true);
+            }
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to show order info.");
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
