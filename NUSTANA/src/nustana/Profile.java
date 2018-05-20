@@ -18,28 +18,20 @@ import tools.UI;
 public class Profile {
     public static final String CONFIGURATION_FILE_PATH = "profileConfig.json";
     private static ProfileInfo profile;
+    private static String password;
     public static ProfileInfo Register(String name,String email,String phoneNumber,String password) throws IOException , BackendlessException{
-        ProfileInfo.Register()
-        JSONObject properties = new JSONObject();
-        properties.put("name", name);
-        properties.put("phoneNumber",phoneNumber);
-        return NUSTANA.getClient().Register(email, password, properties);
+        return ProfileInfo.Register(email, name, phoneNumber, password);
     }
-    public static JSONObject Login(String userEmail,String userPassword) throws IOException , BackendlessException{
-        JSONObject properties = NUSTANA.getClient().Login(userEmail, userPassword);
-        isLoggedin = true;
-        name = properties.getString("name");
-        email = properties.getString("email");
-        phoneNumber = properties.getString("phoneNumber");
-        userStatus = properties.getString("userStatus");
-        password = properties.getString("password");
-        profileId=properties.getString("objectId");
-        return properties;
+    public static ProfileInfo Login(String userEmail,String userPassword) throws IOException , BackendlessException{
+        profile = ProfileInfo.Login(userEmail, userPassword);
+        password = userPassword;
+        return profile;
     }
-    public static JSONObject Update(JSONObject properties)throws IOException,BackendlessException{
-        return NUSTANA.getClient().UpdateUser(profileId, properties);
+    public static ProfileInfo Update(JSONObject properties)throws IOException,BackendlessException{
+        profile = new ProfileInfo(NUSTANA.getClient().UpdateUser(profile.getProfileId(), properties));
+        return profile;
     }
-    public static JSONObject Update(String name,String phoneNumber,String password) throws IOException, BackendlessException{
+    public static ProfileInfo Update(String name,String phoneNumber,String password) throws IOException, BackendlessException{
         JSONObject properties = new JSONObject();
         properties.put("name", name);
         properties.put("phoneNumber",phoneNumber);
@@ -50,30 +42,33 @@ public class Profile {
         return NUSTANA.getClient().ResetPassword(email);
     }
     public static JSONObject Logout() throws IOException , BackendlessException{
-        return NUSTANA.getClient().Logout();
+        JSONObject obj = NUSTANA.getClient().Logout();
+        profile = null;
+        password = null;
+        return obj;
     }
     public static boolean isLoggedin(){
-        return isLoggedin;
+        return profile!=null;
     }
     public static String getPassword(){
         return password;
     } 
     public static String getName(){
-        return name;
+        return profile.getName();
     }
     public static String getEmail(){
-        return email;
+        return profile.getEmail();
     }
     public static String getPhoneNumber(){
-        return phoneNumber;
+        return profile.getPhoneNumber();
     }
     public static String getProfileId(){
-        return profileId;
+        return profile.getProfileId();
     }
     public static boolean isDisabled(){
-        return userStatus.equals("DISABLED");
+        return profile.getProfileStatus().equals("DISABLED");
     }
     public static boolean isConfirmed(){
-        return userStatus.equals("EMAIL_CONFIRMATION_PENDING");
+        return profile.getProfileStatus().equals("EMAIL_CONFIRMATION_PENDING");
     }
 }
