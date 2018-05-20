@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package user;
+package shop;
 
+import user.*;
 import backendless.BackendlessException;
 import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,7 @@ public class OrdersList extends javax.swing.JFrame {
         this.Refresh();
     }
     public Order[] getOrders() throws IOException , BackendlessException{
-        return Order.GetOrders(Profile.getProfileId());
+        return Order.GetOrdersWhere("shopId='"+Shop.getShopId()+"' and status!='Rejected' and status!='Delivered'");
     }
     public ShopItem[] getItems(Order[] orders) throws IOException , BackendlessException{
         ShopItem[] items = new ShopItem[orders.length];
@@ -83,6 +84,7 @@ public class OrdersList extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Orders History");
@@ -95,7 +97,7 @@ public class OrdersList extends javax.swing.JFrame {
         shopName.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         shopName.setForeground(new java.awt.Color(255, 255, 255));
         shopName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        shopName.setText("Orders History");
+        shopName.setText("Orders List");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -147,7 +149,7 @@ public class OrdersList extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(84, 127, 206));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Order");
+        jButton2.setText("Edit Items");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -179,7 +181,7 @@ public class OrdersList extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(84, 127, 206));
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Cancel");
+        jButton4.setText("Reject");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -195,7 +197,7 @@ public class OrdersList extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(84, 127, 206));
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Discard");
+        jButton5.setText("Accept");
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -240,6 +242,22 @@ public class OrdersList extends javax.swing.JFrame {
             }
         });
 
+        jButton8.setBackground(new java.awt.Color(84, 127, 206));
+        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Delivered");
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton8MouseExited(evt);
+            }
+        });
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -256,6 +274,8 @@ public class OrdersList extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,7 +296,8 @@ public class OrdersList extends javax.swing.JFrame {
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -301,7 +322,7 @@ public class OrdersList extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
-            UI.ShowDilague(this, new ShopSelection(this));
+            UI.ShowDilague(this, new ItemsBrowser());
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to view shops!");
         }
@@ -329,10 +350,11 @@ public class OrdersList extends javax.swing.JFrame {
                 ShopItem item = (ShopItem)model.getValueAt(row, 1);
                 Order order = (Order)model.getValueAt(row, 2);
                 if(order.getStatus().equals("Pending")){
-                    order.Delete();
+                    order.setStatus("Rejected");
+                    order.Save();
                     updated = true;
                 }else{
-                    UI.ErrMsg("Cannot cancel this order. Only pending orders can be canceled.", "Error!");
+                    UI.ErrMsg("Cannot reject this order. Only pending orders can be rejected.", "Error!");
                 }
             }
             try{
@@ -341,7 +363,7 @@ public class OrdersList extends javax.swing.JFrame {
                 ExceptionHandling.ShowException(ex, "Unable to refresh orders list!");
             }
         }catch(Exception ex){
-            ExceptionHandling.ShowException(ex, "Unable to cancel order!");
+            ExceptionHandling.ShowException(ex, "Unable to reject order!");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -358,11 +380,12 @@ public class OrdersList extends javax.swing.JFrame {
                 ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
                 ShopItem item = (ShopItem)model.getValueAt(row, 1);
                 Order order = (Order)model.getValueAt(row, 2);
-                if(order.getStatus().equals("Delivered") || order.getStatus().equals("Rejected")){
-                    order.Delete();
+                if(order.getStatus().equals("Pending")){
+                    order.setStatus("Delivering");
+                    order.Save();
                     updated = true;
                 }else{
-                    UI.ErrMsg("Cannot discard this order. Only delivered/rejected orders can be discarded.", "Error!");
+                    UI.ErrMsg("Cannot accept this order. Only pending orders can be accepted.", "Error!");
                 }
             }
             try{
@@ -371,7 +394,7 @@ public class OrdersList extends javax.swing.JFrame {
                 ExceptionHandling.ShowException(ex, "Unable to refresh orders list!");
             }
         }catch(Exception ex){
-            ExceptionHandling.ShowException(ex, "Unable to discard order!");
+            ExceptionHandling.ShowException(ex, "Unable to accept order!");
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -406,6 +429,37 @@ public class OrdersList extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8MouseExited
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try{
+            int[] rows = ordersList.getSelectedRows();
+            DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
+            boolean updated = false;
+            for(int row : rows){
+                ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
+                ShopItem item = (ShopItem)model.getValueAt(row, 1);
+                Order order = (Order)model.getValueAt(row, 2);
+                if(order.getStatus().equals("Delivering")){
+                    order.setStatus("Delivered");
+                    order.Save();
+                    updated = true;
+                }else{
+                    UI.ErrMsg("Cannot deliver this order. Only delivering orders can be delivered.", "Error!");
+                }
+            }
+            try{
+                if(updated) this.Refresh();
+            }catch(Exception ex){
+                ExceptionHandling.ShowException(ex, "Unable to refresh orders list!");
+            }
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to deliver order!");
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
@@ -414,6 +468,7 @@ public class OrdersList extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -21,12 +21,12 @@ import tools.UI;
  *
  * @author Abdul Rahman
  */
-public class ShopPanel extends javax.swing.JFrame {
+public class ItemsBrowser extends javax.swing.JFrame {
 
     /**
      * Creates new form ShopPanel
      */
-    public ShopPanel() throws IOException, BackendlessException {
+    public ItemsBrowser() throws IOException, BackendlessException {
         initComponents();
         updateShopItems();
     }

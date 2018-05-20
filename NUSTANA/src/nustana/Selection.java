@@ -7,7 +7,8 @@ package nustana;
 
 import user.ShopSelection;
 import org.json.JSONArray;
-import shop.ShopPanel;
+import shop.ItemsBrowser;
+import shop.OrdersList;
 import shop.ShopRegistration;
 import tools.ExceptionHandling;
 import tools.UI;
@@ -222,7 +223,7 @@ public class Selection extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         try{
             shop.Shop.Login();
-            UI.ShowDilague(this, new ShopPanel());
+            UI.ShowDilague(this, new OrdersList());
         }catch(IndexOutOfBoundsException ex){
             UI.InfoMsg("You don't have any shop registered! Please register your shop.", "Shop registration!");
             UI.ShowDilague(this, new ShopRegistration());

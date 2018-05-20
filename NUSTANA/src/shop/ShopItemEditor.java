@@ -14,12 +14,12 @@ import tools.UI;
  * @author Abdul Rahman
  */
 public class ShopItemEditor extends javax.swing.JFrame {
-    private ShopPanel panel;
+    private ItemsBrowser panel;
     private ShopItem item;
     /**
      * Creates new form ProfileInfoBox
      */
-    public ShopItemEditor(ShopPanel panel,ShopItem item) {
+    public ShopItemEditor(ItemsBrowser panel,ShopItem item) {
         this.panel = panel;
         this.item = item;
         initComponents();
