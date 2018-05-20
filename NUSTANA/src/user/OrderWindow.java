@@ -6,6 +6,7 @@
 package user;
 
 import com.sun.glass.events.KeyEvent;
+import javax.swing.table.DefaultTableModel;
 import nustana.*;
 import tools.ExceptionHandling;
 import tools.UI;
@@ -15,12 +16,14 @@ import tools.UI;
  * @author Abdul Rahman
  */
 public class OrderWindow extends javax.swing.JFrame {
+    public final OrdersList LIST;
     public final ShopInfo SHOP;
     public final ShopItem ITEM;
     /**
      * Creates new form ProfileInfoBox
      */
-    public OrderWindow(ShopInfo shop,ShopItem item) {
+    public OrderWindow(OrdersList list,ShopInfo shop,ShopItem item) {
+        this.LIST = list;
         this.SHOP = shop;
         this.ITEM = item;
         initComponents();
@@ -62,7 +65,7 @@ public class OrderWindow extends javax.swing.JFrame {
         quantity = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
         price = new javax.swing.JLabel();
-        itemName1 = new javax.swing.JTextField();
+        phoneNumber = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -182,17 +185,17 @@ public class OrderWindow extends javax.swing.JFrame {
         price.setForeground(new java.awt.Color(84, 127, 206));
         price.setText("0");
 
-        itemName1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        itemName1.setForeground(new java.awt.Color(84, 127, 206));
-        itemName1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        itemName1.addActionListener(new java.awt.event.ActionListener() {
+        phoneNumber.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        phoneNumber.setForeground(new java.awt.Color(84, 127, 206));
+        phoneNumber.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        phoneNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemName1ActionPerformed(evt);
+                phoneNumberActionPerformed(evt);
             }
         });
-        itemName1.addKeyListener(new java.awt.event.KeyAdapter() {
+        phoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                itemName1KeyTyped(evt);
+                phoneNumberKeyTyped(evt);
             }
         });
 
@@ -250,7 +253,7 @@ public class OrderWindow extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(price)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(itemName1)))
+                                    .addComponent(phoneNumber)))
                             .addComponent(jScrollPane1))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -283,7 +286,7 @@ public class OrderWindow extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(itemName1))
+                    .addComponent(phoneNumber))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
@@ -346,21 +349,29 @@ public class OrderWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void itemName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemName1ActionPerformed
+    private void phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberActionPerformed
         price.setText((ITEM.getPrice()*(int)quantity.getValue())+"");
-    }//GEN-LAST:event_itemName1ActionPerformed
+    }//GEN-LAST:event_phoneNumberActionPerformed
 
-    private void itemName1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemName1KeyTyped
+    private void phoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeyTyped
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c)||c==KeyEvent.VK_BACKSPACE||c==KeyEvent.VK_DELETE)){evt.consume();}
-    }//GEN-LAST:event_itemName1KeyTyped
+    }//GEN-LAST:event_phoneNumberKeyTyped
 
     private void quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_quantityStateChanged
         
     }//GEN-LAST:event_quantityStateChanged
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
+        try{
+            Order order = Order.Create(SHOP.getShopId(), ITEM.getItemId(), (int)quantity.getValue(), "Pending", phoneNumber.getText(), address.getText(), comments.getText());
+            DefaultTableModel model = (DefaultTableModel)LIST.ordersList.getModel();
+            model.addRow(new Object[] {SHOP,ITEM,order,ITEM.getPrice(),order.getQuantity(),ITEM.getPrice()*order.getQuantity(),order.getStatus(),order.getPhoneNumber(),order.getAddress(),order.getComments()});
+            UI.InfoMsg("Order has been placed!", "Order Placed");
+            UI.CloseFrame(this);
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to place order!");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -371,7 +382,6 @@ public class OrderWindow extends javax.swing.JFrame {
     private javax.swing.JTextArea address;
     private javax.swing.JTextArea comments;
     private javax.swing.JLabel itemName;
-    private javax.swing.JTextField itemName1;
     private javax.swing.JLabel itemPrice;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -389,6 +399,7 @@ public class OrderWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField phoneNumber;
     private javax.swing.JLabel price;
     private javax.swing.JSpinner quantity;
     private javax.swing.JLabel shopName;

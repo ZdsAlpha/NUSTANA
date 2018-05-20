@@ -23,12 +23,14 @@ import tools.UI;
  * @author saifu
  */
 public class Menu extends javax.swing.JFrame {
+    public final OrdersList LIST;
     public final ShopInfo SHOP;
     public final String CATEGORY;
     /**
      * Creates new form MenuWindow2
      */
-    public Menu(ShopInfo shop,String category) throws IOException , BackendlessException{
+    public Menu(OrdersList list,ShopInfo shop,String category) throws IOException , BackendlessException{
+        this.LIST = list;
         this.SHOP = shop;
         this.CATEGORY = category;
         initComponents();
@@ -261,11 +263,11 @@ public class Menu extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int[] rows = shopItems.getSelectedRows();
         DefaultTableModel model = (DefaultTableModel)shopItems.getModel();
-        for(int index : rows){
-            OrderWindowOld ow = new OrderWindowOld(String.valueOf(model.getValueAt(index, 0)), String.valueOf(model.getValueAt(index, 1)));
-            ow.setVisible(true);
-        } 
-
+        for(int row : rows){
+            ShopInfo shop = (ShopInfo)model.getValueAt(row, 0);
+            ShopItem item = (ShopItem)model.getValueAt(row, 1);
+            UI.ShowDilague(this, new OrderWindow(LIST,shop,item));
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited

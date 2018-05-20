@@ -5,6 +5,9 @@
  */
 package user;
 
+import tools.ExceptionHandling;
+import tools.UI;
+
 /**
  *
  * @author Abdul Rahman
@@ -31,11 +34,12 @@ public class OrdersList extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         shopName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        shopItemsTable = new javax.swing.JTable();
+        ordersList = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Orders History");
@@ -67,10 +71,10 @@ public class OrdersList extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        shopItemsTable.setAutoCreateRowSorter(true);
-        shopItemsTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        shopItemsTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        shopItemsTable.setModel(new javax.swing.table.DefaultTableModel(
+        ordersList.setAutoCreateRowSorter(true);
+        ordersList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ordersList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ordersList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -93,9 +97,9 @@ public class OrdersList extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        shopItemsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        shopItemsTable.setSelectionBackground(new java.awt.Color(84, 127, 206));
-        jScrollPane1.setViewportView(shopItemsTable);
+        ordersList.setGridColor(new java.awt.Color(255, 255, 255));
+        ordersList.setSelectionBackground(new java.awt.Color(84, 127, 206));
+        jScrollPane1.setViewportView(ordersList);
 
         jButton2.setBackground(new java.awt.Color(84, 127, 206));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -161,6 +165,22 @@ public class OrdersList extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(84, 127, 206));
+        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Order Info");
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton6MouseExited(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,6 +192,8 @@ public class OrdersList extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,7 +213,8 @@ public class OrdersList extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -215,7 +238,11 @@ public class OrdersList extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseExited
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        try{
+            UI.ShowDilague(this, new ShopSelection(this));
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to view shops!");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
@@ -242,16 +269,25 @@ public class OrdersList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6MouseExited
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable shopItemsTable;
+    public javax.swing.JTable ordersList;
     private javax.swing.JLabel shopName;
     // End of variables declaration//GEN-END:variables
 }

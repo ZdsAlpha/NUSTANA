@@ -28,10 +28,12 @@ import tools.UI;
  * @author saifu
  */
 public class ShopSelection extends javax.swing.JFrame {
+    public final OrdersList LIST;
     /**
      * Creates new form UserDesktop
      */
-    public ShopSelection() throws IOException , BackendlessException {
+    public ShopSelection(OrdersList list) throws IOException , BackendlessException {
+        this.LIST = list;
         initComponents();
         ShopInfo[] shops = ShopInfo.GetShops();
         DefaultTableModel model = (DefaultTableModel)this.shops.getModel();
@@ -252,7 +254,7 @@ public class ShopSelection extends javax.swing.JFrame {
         if(shops.length==0){
             UI.ErrMsg("Please select a shop or presss 'Skip' button.", "Error!");
         }else{
-            UI.ShowDilague(this, new Selection(shops[0]));
+            UI.ShowDilague(this, new Selection(LIST,shops[0]));
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -269,7 +271,7 @@ public class ShopSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5MouseExited
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        UI.ShowDilague(this, new Selection(null));
+        UI.ShowDilague(this, new Selection(LIST,null));
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited

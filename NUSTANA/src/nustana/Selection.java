@@ -233,7 +233,7 @@ public class Selection extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         try{
-            UI.ShowDilague(this, new user.ShopSelection());
+            UI.ShowDilague(this, new user.OrdersList());
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to view shops!");
         }

@@ -22,11 +22,13 @@ import tools.UI;
  * @author saifu
  */
 public class Selection extends javax.swing.JFrame {
+    public final OrdersList LIST;
     public final ShopInfo SHOP;
     /**
      * Creates new form MenuWindow
      */
-    public Selection(ShopInfo shop) {
+    public Selection(OrdersList list,ShopInfo shop) {
+        this.LIST = list;
         this.SHOP = shop;
         initComponents();
         if(shop!=null){
@@ -296,7 +298,7 @@ public class Selection extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
-            UI.ShowDilague(this, new Menu(SHOP, null));
+            UI.ShowDilague(this, new Menu(LIST,SHOP, null));
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to show items!");
         }
@@ -304,7 +306,7 @@ public class Selection extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         try{
-            UI.ShowDilague(this, new Menu(SHOP, "Pizza"));
+            UI.ShowDilague(this, new Menu(LIST,SHOP, "Pizza"));
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to show items!");
         }
@@ -312,7 +314,7 @@ public class Selection extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         try{
-            UI.ShowDilague(this, new Menu(SHOP, "Burgers"));
+            UI.ShowDilague(this, new Menu(LIST,SHOP, "Burgers"));
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to show items!");
         }
@@ -320,7 +322,7 @@ public class Selection extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         try{
-            UI.ShowDilague(this, new Menu(SHOP, "Deserts"));
+            UI.ShowDilague(this, new Menu(LIST,SHOP, "Deserts"));
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to show items!");
         }
@@ -328,7 +330,7 @@ public class Selection extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         try{
-            UI.ShowDilague(this, new Menu(SHOP, "Beverages"));
+            UI.ShowDilague(this, new Menu(LIST,SHOP, "Beverages"));
         }catch(Exception ex){
             ExceptionHandling.ShowException(ex, "Unable to show items!");
         }
