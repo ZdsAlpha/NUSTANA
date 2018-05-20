@@ -5,7 +5,7 @@
  */
 package nustana;
 
-import user.UserDesktop;
+import user.ShopSelection;
 import org.json.JSONArray;
 import shop.ShopPanel;
 import shop.ShopRegistration;
@@ -204,7 +204,7 @@ public class Selection extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
+        UI.CloseFrame(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
@@ -227,13 +227,16 @@ public class Selection extends javax.swing.JFrame {
             UI.InfoMsg("You don't have any shop registered! Please register your shop.", "Shop registration!");
             UI.ShowDilague(this, new ShopRegistration());
         }catch(Exception ex){
-            ExceptionHandling.ShowException(ex, "Unable to show Shop UI!");
+            ExceptionHandling.ShowException(ex, "Unable to view Shop!");
         }
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        UserDesktop ud=new UserDesktop();
-        UI.ShowDilague(this, ud);
+        try{
+            UI.ShowDilague(this, new user.ShopSelection());
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to view shops!");
+        }
     }//GEN-LAST:event_jLabel1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

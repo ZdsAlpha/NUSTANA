@@ -4,40 +4,32 @@
  * and open the template in the editor.
  */
 package user;
-import backendless.BackendlessClient;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import nustana.NUSTANA;
-import org.json.JSONObject;
-import org.json.JSONArray;
+
+import com.sun.glass.events.KeyEvent;
+import nustana.*;
+import tools.ExceptionHandling;
 import tools.UI;
+
 /**
  *
- * @author saifu
+ * @author Abdul Rahman
  */
 public class OrderWindow extends javax.swing.JFrame {
-    private String price;
-       public OrderWindow(String itemName , String price ) {
-           /*
-        try{
-        JSONArray array = NUSTANA.getClient().GetObjects("Items","shopId='" + NewOrderInfo.getShopId() + "' and name='" + itemName + "'");
-        JSONObject obj = array.getJSONObject(0);
-        NewOrderInfo.setItemId(obj.getString("objectId"));
-         initComponents();
-         this.price=price;
-        this.totalPrice.setText("Total= Rs.");
-         this.itemName.setText(itemName);
-         this.priceDisplay.setText("Price= "+price);
+    public final ShopInfo SHOP;
+    public final ShopItem ITEM;
+    /**
+     * Creates new form ProfileInfoBox
+     */
+    public OrderWindow(ShopInfo shop,ShopItem item) {
+        this.SHOP = shop;
+        this.ITEM = item;
+        initComponents();
+        this.setTitle(item.getName());
+        this.shopName.setText(shop.getName());
+        this.itemName.setText(item.getName());
+        this.itemPrice.setText(item.getPrice()+"");
+        price.setText((ITEM.getPrice()*(int)quantity.getValue())+"");
     }
-        catch(Exception e){
-            UI.ErrMsg("Error loading window", "Window loading error");
-        }
-           */
-       }
-       
- 
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,79 +40,80 @@ public class OrderWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        itemCount = new javax.swing.JSpinner();
-        address = new javax.swing.JTextField();
-        notes = new javax.swing.JTextField();
-        totalPrice = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        basicPrice = new javax.swing.JLabel();
-        priceDisplay = new javax.swing.JLabel();
-        basicPrice2 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        shopName = new javax.swing.JLabel();
         itemName = new javax.swing.JLabel();
+        itemPrice = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        address = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        comments = new javax.swing.JTextArea();
+        quantity = new javax.swing.JSpinner();
+        jLabel15 = new javax.swing.JLabel();
+        price = new javax.swing.JLabel();
+        itemName1 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
-        setForeground(java.awt.Color.lightGray);
+        setResizable(false);
 
-        itemCount.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        itemCount.setModel(new javax.swing.SpinnerNumberModel());
-        itemCount.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                itemCountStateChanged(evt);
-            }
-        });
-        itemCount.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                itemCountMouseClicked(evt);
-            }
-        });
-        itemCount.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                itemCountPropertyChange(evt);
-            }
-        });
-        itemCount.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                itemCountKeyPressed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        address.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        address.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        address.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(84, 127, 206));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Cancel");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addressActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        notes.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        notes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        notes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                notesActionPerformed(evt);
-            }
-        });
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel6.setText("Shop Name:");
 
-        totalPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        totalPrice.setText("Total=");
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel9.setText("Item Name:");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(84, 127, 206));
-        jLabel7.setText("Notes (optional)");
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel8.setText("Item Price:");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel10.setText("Quantity:");
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel12.setText("Phone Number:");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel13.setText("Recipient's Address:");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel14.setText("Comments:");
 
         jButton2.setBackground(new java.awt.Color(84, 127, 206));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Order");
+        jButton2.setText("View Item");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton2MouseExited(evt);
-            }
-        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -130,182 +123,274 @@ public class OrderWindow extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(84, 127, 206));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Cancel");
+        jButton3.setText("View Shop");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton3MouseExited(evt);
-            }
-        });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(84, 127, 206));
-        jLabel8.setText("Address *");
+        jButton4.setBackground(new java.awt.Color(84, 127, 206));
+        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("View Recipient's Profile");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
-        basicPrice.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        basicPrice.setForeground(new java.awt.Color(84, 127, 206));
-        basicPrice.setText("New Order");
+        shopName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        shopName.setForeground(new java.awt.Color(84, 127, 206));
+        shopName.setText("XXXXXXXXXX");
 
-        priceDisplay.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        priceDisplay.setText("Price=");
+        itemName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemName.setForeground(new java.awt.Color(84, 127, 206));
+        itemName.setText("XXXXXXXXXX");
 
-        basicPrice2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        basicPrice2.setForeground(new java.awt.Color(84, 127, 206));
-        basicPrice2.setText("Item:");
+        itemPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemPrice.setForeground(new java.awt.Color(84, 127, 206));
+        itemPrice.setText("XXXXXXXXXX");
 
-        itemName.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        itemName.setText("Name");
+        address.setColumns(20);
+        address.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        address.setForeground(new java.awt.Color(84, 127, 206));
+        address.setRows(5);
+        jScrollPane1.setViewportView(address);
+
+        comments.setColumns(20);
+        comments.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        comments.setForeground(new java.awt.Color(84, 127, 206));
+        comments.setRows(5);
+        jScrollPane2.setViewportView(comments);
+
+        quantity.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        quantity.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        quantity.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                quantityStateChanged(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(84, 127, 206));
+        jLabel15.setText("Total (Rs) :");
+
+        price.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        price.setForeground(new java.awt.Color(84, 127, 206));
+        price.setText("0");
+
+        itemName1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        itemName1.setForeground(new java.awt.Color(84, 127, 206));
+        itemName1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        itemName1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemName1ActionPerformed(evt);
+            }
+        });
+        itemName1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                itemName1KeyTyped(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(84, 127, 206));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Order");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(113, 113, 113)
+                                .addComponent(itemName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(107, 107, 107)
+                                .addComponent(shopName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel12))
+                                .addGap(81, 81, 81)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(itemPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(68, 68, 68)
+                                        .addComponent(jLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(price)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(itemName1)))
+                            .addComponent(jScrollPane1))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel13))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(shopName))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(itemName))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(itemPrice))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(price))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(itemName1))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel14)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(basicPrice2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(itemName)
-                                    .addGap(70, 70, 70)
-                                    .addComponent(itemCount, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(44, 44, 44)
-                                    .addComponent(priceDisplay)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(totalPrice))
-                                .addComponent(notes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(address, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel8))
-                        .addGap(50, 50, 50))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(basicPrice)
-                        .addGap(344, 344, 344))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(basicPrice)
-                .addGap(47, 47, 47)
-                .addComponent(basicPrice2)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(itemName)
-                    .addComponent(itemCount, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(priceDisplay)
-                    .addComponent(totalPrice))
-                .addGap(58, 58, 58)
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(notes, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itemCountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemCountKeyPressed
-
-    }//GEN-LAST:event_itemCountKeyPressed
-
-    private void itemCountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_itemCountPropertyChange
-
-    }//GEN-LAST:event_itemCountPropertyChange
-
-    private void itemCountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemCountMouseClicked
-
-    }//GEN-LAST:event_itemCountMouseClicked
-
-    private void itemCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_itemCountStateChanged
-        this.totalPrice.setText("Total= Rs. "+(Integer.valueOf(price)*(int)itemCount.getValue()));
-    }//GEN-LAST:event_itemCountStateChanged
-
-    private void addressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addressActionPerformed
-
-    private void notesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_notesActionPerformed
-
-    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseExited
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        UI.CloseFrame(this);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    /*
         try{
-            JSONObject newOrder = new JSONObject();
-            if( !(address.getText().equals("")) && (int)itemCount.getValue()!=0) {
-                newOrder.put("status", "pending");
-                newOrder.put("itemID", NewOrderInfo.getItemId());
-                newOrder.put("shopId", NewOrderInfo.getShopId());
-                newOrder.put("profileId", NewOrderInfo.getProfileId());
-                newOrder.put("phoneNumber", NewOrderInfo.getPhoneNumber());
-                newOrder.put("address", address.getText());
-                newOrder.put("comments",notes.getText());
-                newOrder.put("quantity",(int)itemCount.getValue());
-                newOrder.put("category",NewOrderInfo.getCategory());
-                JSONObject obj = NUSTANA.getClient().CreateObject("Orders", newOrder);
-                UI.InfoMsg("Order successfully placed", "Success");
-                this.dispose();
-            }
-            else{
-                UI.ErrMsg("Address must be specified and order must be of alteast 1 item", "ERROR");
-            }
+            (new ShopItemBox(ProfileInfo.Fetch(SHOP.getProfileId()), SHOP, ITEM)).setVisible(true);
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to show item info!");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
-           catch(Exception e){
-               UI.ErrMsg("Unable to place Order","Error");
-           }
-        */
-    }
-    
-    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3MouseExited
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.dispose();
+        
+        try{
+            (new ShopInfoBox(ProfileInfo.Fetch(SHOP.getProfileId()),SHOP)).setVisible(true);
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to show shop info!");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try{
+            (new ProfileInfoBox(ProfileInfo.Fetch(SHOP.getProfileId()))).setVisible(true);
+        }catch(Exception ex){
+            ExceptionHandling.ShowException(ex, "Unable to view item info!");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void itemName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemName1ActionPerformed
+        price.setText((ITEM.getPrice()*(int)quantity.getValue())+"");
+    }//GEN-LAST:event_itemName1ActionPerformed
+
+    private void itemName1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemName1KeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c)||c==KeyEvent.VK_BACKSPACE||c==KeyEvent.VK_DELETE)){evt.consume();}
+    }//GEN-LAST:event_itemName1KeyTyped
+
+    private void quantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_quantityStateChanged
+        
+    }//GEN-LAST:event_quantityStateChanged
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField address;
-    private javax.swing.JLabel basicPrice;
-    private javax.swing.JLabel basicPrice2;
-    private javax.swing.JSpinner itemCount;
+    private javax.swing.JTextArea address;
+    private javax.swing.JTextArea comments;
     private javax.swing.JLabel itemName;
+    private javax.swing.JTextField itemName1;
+    private javax.swing.JLabel itemPrice;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField notes;
-    private javax.swing.JLabel priceDisplay;
-    private javax.swing.JLabel totalPrice;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel price;
+    private javax.swing.JSpinner quantity;
+    private javax.swing.JLabel shopName;
     // End of variables declaration//GEN-END:variables
 }

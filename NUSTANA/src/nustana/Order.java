@@ -189,4 +189,9 @@ public class Order {
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "itemId='" + itemId + "'");
         return ProcessOrders(objects);
     }
+    
+    public static Order[] GetOrdersWhere(String where) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, where);
+        return ProcessOrders(objects);
+    }
 }

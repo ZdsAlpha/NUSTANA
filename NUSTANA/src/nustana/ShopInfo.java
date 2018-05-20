@@ -137,4 +137,8 @@ public class ShopInfo {
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "ownerId='" + profileId + "'");
         return ProcessShops(objects);
     }
+    public static ShopInfo[] GetShopsWhere(String where) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, where);
+        return ProcessShops(objects);
+    }
 }

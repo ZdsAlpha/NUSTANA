@@ -115,4 +115,8 @@ public class ProfileInfo {
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE);
         return ProcessProfiles(objects);
     }
+    public static ProfileInfo[] GetProfilesWhere(String where) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, where);
+        return ProcessProfiles(objects);
+    }
 }

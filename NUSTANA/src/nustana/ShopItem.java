@@ -156,4 +156,12 @@ public class ShopItem {
         JSONArray objects = NUSTANA.getClient().GetObjects(TABLE,"shopId='" + shopId + "' and category='" + category + "'");
         return ProcessItems(objects);
     }
+    public static ShopItem[] GetItemsByCategory(String category) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, "category='" + category + "'");
+        return ProcessItems(objects);
+    }
+    public static ShopItem[] GetItemsWhere(String where) throws IOException , BackendlessException{
+        JSONArray objects = NUSTANA.getClient().GetObjects(TABLE, where);
+        return ProcessItems(objects);
+    }
 }
