@@ -47,6 +47,9 @@ public class Profile {
         password = null;
         return obj;
     }
+    public static ProfileInfo getProfile(){
+        return profile;
+    }
     public static boolean isLoggedin(){
         return profile!=null;
     }

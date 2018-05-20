@@ -17,13 +17,16 @@ import nustana.*;
  */
 public class Shop {
     private static ShopInfo shop;
-    public static JSONArray RetrieveShops() throws IOException, BackendlessException{
-        return NUSTANA.getClient().GetObjects("Shops", "ownerId='"+Profile.getProfileId()+"'");
+    public static ShopInfo[] RetrieveShops() throws IOException, BackendlessException{
+        return ShopInfo.GetShops(Profile.getProfileId());
     }
     public static void Login() throws IOException, BackendlessException {
-        ShopInfo[] shops = ShopInfo.GetShops(Profile.getProfileId());
+        ShopInfo[] shops = RetrieveShops();
         if(shops.length==0) throw new IndexOutOfBoundsException("No shop found!");
         shop = shops[0];
+    }
+    public static ShopInfo getShopInfo(){
+        return shop;
     }
     public static String getShopId(){
         return shop.getShopId();
@@ -40,5 +43,4 @@ public class Shop {
     public static String getDescription(){
         return shop.getDescription();
     }
-    
 }
