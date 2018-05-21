@@ -117,7 +117,7 @@ public class Order {
         JSONObject obj = new JSONObject();
         obj.put("shopId", shopId);
         obj.put("itemId",itemId);
-        obj.put("qunatity", quantity);
+        obj.put("quantity", quantity);
         obj.put("status", status);
         obj.put("phoneNumber",phoneNumber);
         obj.put("address",address);
@@ -130,7 +130,7 @@ public class Order {
         profileId = obj.getString("ownerId");
         shopId = obj.getString("shopId");
         itemId = obj.getString("itemId");
-        quantity = obj.getInt("address");
+        quantity = obj.getInt("quantity");
         status = obj.getString("status");
         phoneNumber = obj.getString("phoneNumber");
         address = obj.getString("address");

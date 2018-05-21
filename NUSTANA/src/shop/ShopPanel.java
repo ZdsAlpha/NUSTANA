@@ -32,7 +32,8 @@ public class ShopPanel extends javax.swing.JFrame {
         this.Refresh();
     }
     public Order[] getOrders() throws IOException , BackendlessException{
-        return Order.GetOrdersWhere("shopId='"+Shop.getShopId()+"' and status!='Rejected' and status!='Delivered'");
+        Order[] orders = Order.GetOrdersWhere("shopId='"+Shop.getShopId()+"' and status!='Rejected' and status!='Delivered'");
+        return orders;
     }
     public ShopItem[] getItems(Order[] orders) throws IOException , BackendlessException{
         ShopItem[] items = new ShopItem[orders.length];
@@ -41,28 +42,19 @@ public class ShopPanel extends javax.swing.JFrame {
         }
         return items;
     }
-    public ShopInfo[] getShops(Order[] orders) throws IOException , BackendlessException{
-        ShopInfo[] shops = new ShopInfo[orders.length];
-        for(int i = 0; i < orders.length;i++){
-            shops[i] = ShopInfo.Fetch(orders[i].getShopId());
-        }
-        return shops;
-    }
-    public void Refresh(ShopInfo[] shops,ShopItem[] items,Order[] orders){
+    public void Refresh(ShopItem[] items,Order[] orders){
         DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
         model.setNumRows(0);
-        for(int i = 0;i < shops.length-1;i++){
-            ShopInfo shop = shops[i];
+        for(int i = 0;i < orders.length;i++){
             ShopItem item = items[i];
             Order order = orders[i];
-            model.addRow(new Object[] {shop,item,order,item.getPrice(),order.getQuantity(),item.getPrice()*order.getQuantity(),order.getStatus(),order.getPhoneNumber(),order.getAddress(),order.getComments()});
+            model.addRow(new Object[] {item,order,item.getPrice(),order.getQuantity(),item.getPrice()*order.getQuantity(),order.getStatus(),order.getPhoneNumber(),order.getAddress(),order.getComments()});
         }
     }
     public void Refresh() throws IOException , BackendlessException{
         Order[] orders = getOrders();
         ShopItem[] items = getItems(orders);
-        ShopInfo[] shops = getShops(orders);
-        Refresh(shops,items,orders);
+        this.Refresh(items,orders);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,14 +116,14 @@ public class ShopPanel extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Shop", "Item", "Order Id", "Item Price", "Quantity", "Total Price", "Status", "Phone Number", "Address", "Comments"
+                "Item", "Order Id", "Item Price", "Quantity", "Total Price", "Status", "Phone Number", "Address", "Comments"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
