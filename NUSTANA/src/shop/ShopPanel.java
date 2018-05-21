@@ -22,12 +22,12 @@ import tools.UI;
  *
  * @author Abdul Rahman
  */
-public class OrdersList extends javax.swing.JFrame {
+public class ShopPanel extends javax.swing.JFrame {
 
     /**
      * Creates new form OrdersList
      */
-    public OrdersList() throws IOException , BackendlessException {
+    public ShopPanel() throws IOException , BackendlessException {
         initComponents();
         this.Refresh();
     }
@@ -87,7 +87,7 @@ public class OrdersList extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Orders History");
+        setTitle("Shop Panel");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

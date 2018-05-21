@@ -23,13 +23,13 @@ import tools.UI;
  * @author saifu
  */
 public class Menu extends javax.swing.JFrame {
-    public final OrdersList LIST;
+    public final UserPanel LIST;
     public final ShopInfo SHOP;
     public final String CATEGORY;
     /**
      * Creates new form MenuWindow2
      */
-    public Menu(OrdersList list,ShopInfo shop,String category) throws IOException , BackendlessException{
+    public Menu(UserPanel list,ShopInfo shop,String category) throws IOException , BackendlessException{
         this.LIST = list;
         this.SHOP = shop;
         this.CATEGORY = category;

@@ -28,11 +28,11 @@ import tools.UI;
  * @author saifu
  */
 public class ShopSelection extends javax.swing.JFrame {
-    public final OrdersList LIST;
+    public final UserPanel LIST;
     /**
      * Creates new form UserDesktop
      */
-    public ShopSelection(OrdersList list) throws IOException , BackendlessException {
+    public ShopSelection(UserPanel list) throws IOException , BackendlessException {
         this.LIST = list;
         initComponents();
         ShopInfo[] shops = ShopInfo.GetShops();

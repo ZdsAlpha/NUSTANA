@@ -16,13 +16,13 @@ import tools.UI;
  * @author Abdul Rahman
  */
 public class OrderWindow extends javax.swing.JFrame {
-    public final OrdersList LIST;
+    public final UserPanel LIST;
     public final ShopInfo SHOP;
     public final ShopItem ITEM;
     /**
      * Creates new form ProfileInfoBox
      */
-    public OrderWindow(OrdersList list,ShopInfo shop,ShopItem item) {
+    public OrderWindow(UserPanel list,ShopInfo shop,ShopItem item) {
         this.LIST = list;
         this.SHOP = shop;
         this.ITEM = item;

@@ -22,12 +22,12 @@ import tools.UI;
  * @author saifu
  */
 public class Selection extends javax.swing.JFrame {
-    public final OrdersList LIST;
+    public final UserPanel LIST;
     public final ShopInfo SHOP;
     /**
      * Creates new form MenuWindow
      */
-    public Selection(OrdersList list,ShopInfo shop) {
+    public Selection(UserPanel list,ShopInfo shop) {
         this.LIST = list;
         this.SHOP = shop;
         initComponents();
