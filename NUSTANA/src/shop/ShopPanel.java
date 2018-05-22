@@ -338,9 +338,8 @@ public class ShopPanel extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
             boolean updated = false;
             for(int row : rows){
-                ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
-                ShopItem item = (ShopItem)model.getValueAt(row, 1);
-                Order order = (Order)model.getValueAt(row, 2);
+                ShopItem item = (ShopItem)model.getValueAt(row, 0);
+                Order order = (Order)model.getValueAt(row, 1);
                 if(order.getStatus().equals("Pending")){
                     order.setStatus("Rejected");
                     order.Save();
@@ -369,9 +368,8 @@ public class ShopPanel extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
             boolean updated = false;
             for(int row : rows){
-                ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
-                ShopItem item = (ShopItem)model.getValueAt(row, 1);
-                Order order = (Order)model.getValueAt(row, 2);
+                ShopItem item = (ShopItem)model.getValueAt(row, 0);
+                Order order = (Order)model.getValueAt(row, 1);
                 if(order.getStatus().equals("Pending")){
                     order.setStatus("Delivering");
                     order.Save();
@@ -399,9 +397,9 @@ public class ShopPanel extends javax.swing.JFrame {
             int[] rows = ordersList.getSelectedRows();
             DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
             for(int row : rows){
-                ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
-                ShopItem item = (ShopItem)model.getValueAt(row, 1);
-                Order order = (Order)model.getValueAt(row, 2);
+                ShopItem item = (ShopItem)model.getValueAt(row, 0);
+                Order order = (Order)model.getValueAt(row, 1);
+                ShopInfo shop = ShopInfo.Fetch(item.getShopId());
                 (new OrderBox(ProfileInfo.Fetch(shop.getProfileId()), shop, item, order)).setVisible(true);
             }
         }catch(Exception ex){
@@ -431,9 +429,8 @@ public class ShopPanel extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel)ordersList.getModel();
             boolean updated = false;
             for(int row : rows){
-                ShopInfo shop = (ShopInfo)model.getValueAt(row,0);
-                ShopItem item = (ShopItem)model.getValueAt(row, 1);
-                Order order = (Order)model.getValueAt(row, 2);
+                ShopItem item = (ShopItem)model.getValueAt(row, 0);
+                Order order = (Order)model.getValueAt(row, 1);
                 if(order.getStatus().equals("Delivering")){
                     order.setStatus("Delivered");
                     order.Save();
