@@ -82,7 +82,7 @@ User-->Database: Discard Order
 - Change file to:
 ```json
 {
-		"applicationId":"YOUR_APPLICATION_ID",
-		"secretKey":"YOUR_REST_API_KEY"
+	"applicationId":"YOUR_APPLICATION_ID",
+	"secretKey":"YOUR_REST_API_KEY"
 }
 ```
