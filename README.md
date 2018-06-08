@@ -35,3 +35,30 @@
 [![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/itemInfo.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/itemInfo.png)
 ### Order Info
 [![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/orderInfo.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/orderInfo.png)
+
+# Working
+## Successful Delivery
+```seq
+User->Database: Place Order (Pending)
+Database->Shop: Orders
+Shop->Database: Accept Order
+Database->User: Order Accepted
+Shop->Database: Order Delivered
+Database->User: Order Delivered
+User-->Database: Discard Order
+```
+## Order Canceled By User
+```seq
+User->Database: Place Order (Pending)
+Database->Shop: Orders
+User->Database: Cancel Order
+Database->Shop: Update Orders
+```
+## Order Rejected By Shop
+```seq
+User->Database: Place Order (Pending)
+Database->Shop: Orders
+Shop->Database: Reject Order
+Database->User: Order Rejected
+User-->Database: Discard Order
+```
