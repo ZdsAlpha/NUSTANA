@@ -1,2 +1,37 @@
 # NUSTANA
-A service for ordering products.
+[![NUSTANA](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/src/Images/anim_logo.gif "NUSTANA")](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/src/Images/anim_logo.gif "NUSTANA")
+
+## User Side
+
+### Login
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/login.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/login.png)
+### Registration
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/registration.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/registration.png)
+### Order History
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/ordersHistory.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/ordersHistory.png)
+### Shops
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/shops.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/shops.png)
+### Menu
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/menu.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/menu.png)
+### Order Placement
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/orderPlacement.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/orderPlacement.png)
+## Shop Side
+
+### Shop Registration
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/shopRegistration.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/shopRegistration.png)
+### Orders List
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/ordersList.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/ordersList.png)
+### Shop Items
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/shopItems.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/shopItems.png)
+### Shop Items Editor
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/itemEditor.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/itemEditor.png)
+## Info Boxes
+
+### Profile Info
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/profileInfo.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/profileInfo.png)
+### Shop Info
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/shopInfo.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/shopInfo.png)
+### Item Info
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/itemInfo.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/itemInfo.png)
+### Order Info
+[![](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/orderInfo.png)](https://raw.githubusercontent.com/ZdsAlpha/NUSTANA/master/NUSTANA/Screenshots/orderInfo.png)
