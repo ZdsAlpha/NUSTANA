@@ -38,6 +38,7 @@
 
 # Working
 ## Successful Delivery
+                    
 ```seq
 User->Database: Place Order (Pending)
 Database->Shop: Orders
@@ -48,6 +49,7 @@ Database->User: Order Delivered
 User-->Database: Discard Order
 ```
 ## Order Canceled By User
+                    
 ```seq
 User->Database: Place Order (Pending)
 Database->Shop: Orders
@@ -55,10 +57,32 @@ User->Database: Cancel Order
 Database->Shop: Update Orders
 ```
 ## Order Rejected By Shop
+                    
 ```seq
 User->Database: Place Order (Pending)
 Database->Shop: Orders
 Shop->Database: Reject Order
 Database->User: Order Rejected
 User-->Database: Discard Order
+```
+
+# Deployment
+## Create Database
+- Create account on Backendless
+- Create an App
+- Create three tables `Shops`, `Items`, `Orders`
+- Copy App `Application ID` and `REST API key`
+## Connecting with Database
+- Delete `appConfig.json` file in NUSTANA directory (if exists)
+- Run NUSTANA
+- You will be asked to enter Application ID and Secret Key
+- Enter `Application ID` and `REST API key` respectively
+### OR
+- Open/Create `appConfig.json`
+- Change file to:
+```json
+{
+		"applicationId":"YOUR_APPLICATION_ID",
+		"secretKey":"YOUR_REST_API_KEY"
+}
 ```
